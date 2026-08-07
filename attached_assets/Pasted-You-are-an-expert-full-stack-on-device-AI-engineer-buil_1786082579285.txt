@@ -1,0 +1,168 @@
+You are an expert full-stack + on-device AI engineer building a hackathon MVP for problem statement PS-I2: "Intelligence Without the Data Centre."
+
+GOAL
+Build a working, demo-ready MVP of an offline-first mobile/web app that lets a citizen scan or open a government form and ask natural-language questions about it — including at least one question that requires REASONING over an eligibility rule, not just field lookup — with the answer entirely generated on-device (no network calls at inference time). Initial language support: English (en) and Telugu (te), architected so the other five languages (hi, bn, ta, mr, kn) can be added by just dropping in more data/prompt templates.
+
+CONTEXT / DATASET (The dataset (psi2.csv) will be uploaded separately into the project's /data folder.
+Load it automatically at runtime.)
+- CSV columns: qid, form_id, form_type, lang, type, question, answer
+- form_type ∈ {scholarship, ration_card, old_age_pension}
+- type ∈ {extraction, reasoning} — "extraction" = copy a field value (e.g. applicant name, district, annual income, family members, category); "reasoning" = apply a rule (e.g. "Based on the income cap and household size rule, is this applicant eligible? Answer yes or no.")
+- Same qid pattern across 7 languages (en, hi, bn, te, ta, mr, kn) for the SAME underlying form — the corpus is parallel by construction, so any per-language accuracy gap is a property of the model/tokenizer, not the question.
+- ~120 forms, 5,040 QA pairs total.
+
+CORE REQUIREMENTS FROM THE PROBLEM STATEMENT (must all be visibly represented in the MVP, even if some are stubbed/simulated given the 3–4 hour build window)
+1. App must conceptually run in aeroplane mode — no inference-time network calls. Simulate on-device LLM inference via a local/offline-capable module (e.g., a mocked llama.cpp/Qwen/Gemma-style inference wrapper with a clearly marked TODO/plug-in point for the real quantized GGUF model).
+2. Pipeline: form image or text → OCR (stub with Tesseract.js or a placeholder OCR module) → retrieval over the form's own fields (simple keyword/embedding retrieval over structured field data) → local LLM answers the question → return answer + which field it came from (source attribution).
+3. Must handle both extraction questions (direct field lookup) and reasoning questions (apply an eligibility rule like income cap + household size) — clearly differentiate these two question types in the UI and in the retrieval/answer logic.
+4. Accuracy reporting must be PER LANGUAGE and PER QUESTION TYPE (extraction vs reasoning) separately — never a single blended aggregate number. This is the central "trap" the problem statement warns about: aggregate numbers hide catastrophic drops in low-resource languages.
+5. Include a "Measurements / Analytics" dashboard page showing (using placeholder/simulated data clearly labeled as such, with a TODO to wire up real device telemetry): cold-start model load time, prefill/decode tokens-per-second, peak RSS memory, sustained throughput after thermal soak, and a tokenizer fertility table across languages (before/after tokenizer intervention). Present these as distributions (histograms/box plots), not single best-case numbers.
+6. Must show a "Limits" section (what's simulated vs real, target device class ≤₹12,000, target resident memory ≤1.2GB) to be transparent with judges.
+
+TECH STACK (choose the best modern combination — you decide final versions/libraries, but follow this shape)
+
+Frontend:
+- Flutter (latest stable)
+- Material 3
+- Responsive UI
+- Supports Android, Web, Windows, macOS and Linux from one codebase.
+Backend:
+-No separate backend.
+-Use clean architecture with local services and repositories inside Flutter.
+AI Engine:
+- llama.cpp-ready interface
+- Qwen2.5-1.5B-Instruct GGUF
+- Mock inference first
+- Easy replacement with real GGUF later.
+
+OCR:
+- Google ML Kit (Android)
+- Tesseract fallback for Desktop/Web.
+
+Storage:
+- Local SQLite / Hive
+- CSV parser for qa_flat.csv
+
+Charts:
+- fl_chart
+
+Architecture:
+User
+↓
+Upload Form (Image/PDF)
+↓
+OCR
+↓
+Retrieve relevant form fields
+↓
+Offline AI (llama.cpp-ready interface)
+↓
+Answer + Source Field
+↓
+Analytics Dashboard
+FOLDER STRUCTURE (GitHub-friendly, modular for 3 people working in parallel):
+
+ps-i2-ondevice/
+├── lib/
+│   ├── screens/
+│   ├── widgets/
+│   ├── services/
+│   ├── models/
+│   ├── utils/
+│   ├── ai/
+│   ├── ocr/
+│   ├── analytics/
+│   └── main.dart
+├── assets/
+│   ├── forms/
+│   ├── models/
+│   └── images/
+├── measurement/
+├── data/
+│   └── qa_flat.csv
+├── docs/
+├── android/
+├── ios/
+├── linux/
+├── macos/
+├── windows/
+├── web/
+└── pubspec.yaml
+UI/UX REQUIREMENTS
+- Clean, modern, judge-impressive design: dark theme with a subtle accent color, clear typography, generous whitespace, smooth transitions — avoid generic Bootstrap look.
+- Home page: pick a form (scholarship / ration_card / old_age_pension), pick language (English/Telugu toggle prominently, others greyed out as "coming soon").
+- Form Viewer page: renders the form fields, an "aeroplane mode" badge/indicator to visually reinforce the offline claim.
+- Ask a Question page: chat-style input, shows the answer plus a highlighted "Source field: X" chip, and a badge distinguishing "Extraction" vs "Reasoning" question type.
+- Analytics/Measurement page: per-language, per-question-type accuracy bar chart; latency distribution histograms (cold vs warm); memory usage chart; tokenizer fertility table — everything clearly labeled where data is real (from CSV) vs simulated (device telemetry).
+- Limits page: bullet list of what's mocked vs real, and what the real deployment target is.
+
+CONSTRAINTS
+- No authentication, no user accounts, no unnecessary features — pure functional MVP.
+- No real network calls at "inference time" in the simulated flow — make this explicit in code comments and UI copy.
+- Do not attempt to train or fine-tune anything — this is an integration/engineering demo, not a training exercise.
+- Keep the on-device LLM and OCR as clearly-labeled swappable interfaces, not hardcoded logic, so a real llama.cpp/GGUF model or a real Tesseract call can be dropped in after the hackathon with minimal changes.
+- Everything must run and demo entirely within Replit (use mock/simulated device metrics where real hardware isn't available, but structure code so it's obviously "real-device-ready").
+
+DELIVERABLE:
+
+Generate the complete Flutter project with all folders and files described above.
+
+Implement a fully working MVP with:
+- Local CSV loading (qa_flat.csv)
+- OCR integration
+- Retrieval engine
+- Mock offline AI engine with llama.cpp-ready interface
+- English and Telugu question answering
+- Extraction and reasoning support
+- Analytics dashboard
+- Material 3 responsive UI
+- Offline-first architecture
+- Android, Web, Windows, macOS and Linux support
+
+Generate complete code for every file.
+
+Do not generate placeholders only.
+
+Implement working navigation, screens, services, models, and local storage.
+
+Include a README explaining the architecture, setup, and how three teammates can work independently.
+
+Start with the full project scaffold, then continue generating until the project is fully implemented.
+IMPORTANT:
+
+Generate a COMPLETE runnable Flutter project.
+
+Do not generate placeholders only.
+
+Implement every screen with working navigation.
+
+Implement OCR integration.
+
+Implement local CSV loading.
+
+Implement retrieval.
+
+Implement the mock offline LLM.
+
+Implement analytics dashboard.
+
+Implement beautiful Material 3 UI.
+
+Generate complete code for every file.
+
+Do not stop after generating folder structure.
+
+Continue until the project is fully generated.
+IMPORTANT:
+
+Build a production-quality hackathon MVP, not just a prototype.
+
+Prioritize:
+- Beautiful UI/UX
+- Fast performance
+- Clean architecture
+- Reusable code
+- Cross-platform compatibility
+- Offline-first design
+
+The project should be impressive enough for a hackathon judging panel and be ready for future integration with a real on-device GGUF model.

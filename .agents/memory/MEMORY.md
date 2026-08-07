@@ -1,0 +1,1 @@
+- [Offline citizen assistant](offline-citizen-assistant.md) — local CSV retrieval and transparent adapter boundaries are central to this demo.

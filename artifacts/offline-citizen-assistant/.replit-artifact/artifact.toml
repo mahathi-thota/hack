@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Offline Citizen Assistant"
+description = "An offline-first citizen form assistant for scholarship, ration card, and old-age pension forms. It uses local dataset retrieval, extraction and eligibility reasoning, English and Telugu support, source attribution, and simulated on-device measurements."
+version = "1.0.0"
+id = "artifacts/offline-citizen-assistant"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18315
+
+[services.development]
+run = "pnpm --filter @workspace/offline-citizen-assistant run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/offline-citizen-assistant", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/offline-citizen-assistant/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18315"
+BASE_PATH = "/"

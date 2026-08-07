@@ -3,6 +3,9 @@ export type OcrLanguage = 'en' | 'te';
 export type OcrProgress = { status: string; progress: number };
 export type LocalAnswer = { answer: string; type: 'extraction' | 'reasoning' | 'not-found'; confidence: number; source: string };
 
+export const isPdfFile = (file: Pick<File, 'name' | 'type'>) =>
+  file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
 const csvLine = (line: string) => {
   const out: string[] = []; let cell = ''; let quoted = false;
   for (let i = 0; i < line.length; i += 1) { const c = line[i]; if (c === '"' && line[i + 1] === '"') { cell += '"'; i += 1; } else if (c === '"') quoted = !quoted; else if (c === ',' && !quoted) { out.push(cell); cell = ''; } else cell += c; }
@@ -10,8 +13,9 @@ const csvLine = (line: string) => {
 };
 export async function loadCorpus(): Promise<CorpusRecord[]> {
   const response = await fetch(`${import.meta.env.BASE_URL}data/psi2.csv`);
+  if (!response.ok) throw new Error(`Could not load the bundled evaluation corpus (${response.status}).`);
   const text = await response.text();
-  const lines = text.split(/\r?\n/).filter(Boolean);
+  const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/).filter(Boolean);
   return lines.slice(1).map((line) => { const [qid, form_id, form_type, lang, type, question, answer] = csvLine(line); return { qid, form_id, form_type, lang, type: type as CorpusRecord['type'], question, answer }; }).filter((r) => r.qid);
 }
 
@@ -20,9 +24,10 @@ export async function loadCorpus(): Promise<CorpusRecord[]> {
  * own public directory so an upload does not need a network request.
  */
 export async function extractTextFromFile(file: File, language: OcrLanguage, onProgress?: (progress: OcrProgress) => void) {
+  const isPdf = isPdfFile(file);
   const [{ createWorker }, pdfjsLib] = await Promise.all([
     import('tesseract.js'),
-    file.type === 'application/pdf' ? import('pdfjs-dist') : Promise.resolve(null),
+    isPdf ? import('pdfjs-dist') : Promise.resolve(null),
   ]);
   const base = import.meta.env.BASE_URL;
   const lang = language === 'te' ? 'tel' : 'eng';
@@ -36,7 +41,7 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
   });
 
   try {
-    if (file.type === 'application/pdf' && pdfjsLib) {
+    if (isPdf && pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = `${base}ocr/pdf.worker.mjs`;
       const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
       const pages = Math.min(pdf.numPages, 5);

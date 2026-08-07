@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Link, Router as WouterRouter, useLocation } from 'wouter';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Activity, ArrowRight, BarChart3, Camera, Check, ChevronRight, CircleHelp, Cpu,
   Database, FileText, FileUp, Gauge, Info, Languages, LockKeyhole, Menu, MessageCircle,
@@ -13,6 +13,7 @@ import {
   answerLocally,
   CorpusRecord,
   extractTextFromFile,
+  isPdfFile,
   loadCorpus,
   type LocalAnswer,
   type OcrLanguage,
@@ -34,7 +35,7 @@ const languages = [
   { id: 'te' as LangChoice, label: 'తెలుగు', note: 'OCR and questions ready offline' },
 ];
 
-function AppShell({ children, document, selectedLang, corpusReady }: { children: ReactNode; document: UploadedDocument | null; selectedLang: LangChoice; corpusReady: boolean }) {
+function AppShell({ children, document, selectedLang, corpusReady, theme, onToggleTheme }: { children: ReactNode; document: UploadedDocument | null; selectedLang: LangChoice; corpusReady: boolean; theme: 'light' | 'dark'; onToggleTheme: () => void }) {
   const [path] = useLocation();
   const [open, setOpen] = useState(false);
   const nav = [
@@ -70,7 +71,7 @@ function AppShell({ children, document, selectedLang, corpusReady }: { children:
       <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-border/70 bg-background/90 px-5 backdrop-blur-md sm:px-8 lg:px-12">
         <button onClick={() => setOpen(true)} className="rounded-lg p-2 text-foreground lg:hidden" aria-label="Open menu" data-testid="button-open-menu"><Menu size={21} /></button>
         <div className="hidden items-center gap-2 text-[12px] text-muted-foreground sm:flex"><span className="font-data text-[10px] uppercase tracking-[.14em]">Device local</span><span className="h-1 w-1 rounded-full bg-accent" /><span>{document ? `${document.name} · ${selectedLang === 'en' ? 'English' : 'Telugu'}` : 'No form loaded'}</span></div>
-        <div className="ml-auto flex items-center gap-2"><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span><button className="rounded-lg p-2 text-muted-foreground hover:bg-secondary" aria-label="Toggle appearance" data-testid="button-theme"><Moon size={17} /></button></div>
+        <div className="ml-auto flex items-center gap-2"><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span><button onClick={onToggleTheme} className="rounded-lg p-2 text-muted-foreground hover:bg-secondary" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} data-testid="button-theme"><Moon size={17} /></button></div>
       </header>
       <main className="mx-auto max-w-[1380px] px-5 py-8 sm:px-8 lg:px-12 lg:py-12">{children}</main>
     </div>
@@ -166,13 +167,17 @@ function App() {
   const [corpus, setCorpus] = useState<CorpusRecord[]>([]);
   const [document, setDocument] = useState<UploadedDocument | null>(null);
   const [selectedLang, setSelectedLang] = useState<LangChoice>(() => (localStorage.getItem('namma-lang') as LangChoice) || 'en');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => (localStorage.getItem('namma-theme') as 'light' | 'dark') || 'light');
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [processingLabel, setProcessingLabel] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const uploadId = useRef(0);
 
   useEffect(() => { loadCorpus().then(setCorpus).catch(() => setCorpus([])); }, []);
   useEffect(() => { localStorage.setItem('namma-lang', selectedLang); }, [selectedLang]);
+  useEffect(() => { window.document.documentElement.classList.toggle('dark', theme === 'dark'); localStorage.setItem('namma-theme', theme); }, [theme]);
+  useEffect(() => () => { if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl); }, [document?.previewUrl]);
   useEffect(() => {
     const handleTextChange = (event: Event) => {
       const text = (event as CustomEvent<string>).detail;
@@ -191,11 +196,12 @@ function App() {
   };
 
   const handleFile = async (file: File, source: UploadSource) => {
-    const accepted = file.type.startsWith('image/') || file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    const accepted = file.type.startsWith('image/') || isPdfFile(file);
     if (!accepted) {
       setError('Please choose an image or PDF form.');
       return;
     }
+    const currentUploadId = ++uploadId.current;
     if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl);
     setError(null);
     setIsProcessing(true);
@@ -204,24 +210,26 @@ function App() {
     const previewUrl = URL.createObjectURL(file);
     try {
       const text = await extractTextFromFile(file, selectedLang as OcrLanguage, ({ status, progress: nextProgress }) => {
+        if (currentUploadId !== uploadId.current) return;
         setProcessingLabel(status || 'Running local OCR');
         setProgress(Math.max(0.04, Math.min(0.98, nextProgress)));
       });
       if (!text.trim()) throw new Error('No readable text was found. Try a sharper photo or edit the OCR text manually.');
+      if (currentUploadId !== uploadId.current) { URL.revokeObjectURL(previewUrl); return; }
       setDocument({ name: file.name || (source === 'camera' ? 'camera-capture.jpg' : 'uploaded-form'), type: file.type || 'application/octet-stream', previewUrl, text, source });
       setProgress(1);
       setProcessingLabel('OCR text ready');
       window.history.replaceState({}, '', `${import.meta.env.BASE_URL}form`);
       window.dispatchEvent(new PopStateEvent('popstate'));
     } catch (caught) {
-      URL.revokeObjectURL(previewUrl);
-      setError(caught instanceof Error ? caught.message : 'Local OCR could not read this file. Try another image or PDF.');
+      if (currentUploadId === uploadId.current) URL.revokeObjectURL(previewUrl);
+      if (currentUploadId === uploadId.current) setError(caught instanceof Error ? caught.message : 'Local OCR could not read this file. Try another image or PDF.');
     } finally {
-      setIsProcessing(false);
+      if (currentUploadId === uploadId.current) setIsProcessing(false);
     }
   };
 
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><AppShell document={document} selectedLang={selectedLang} corpusReady={corpus.length > 0}><RouterView corpus={corpus} document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={handleFile} onReset={resetDocument} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} /></AppShell></WouterRouter></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><AppShell document={document} selectedLang={selectedLang} corpusReady={corpus.length > 0} theme={theme} onToggleTheme={() => setTheme((current) => current === 'light' ? 'dark' : 'light')}><RouterView corpus={corpus} document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={handleFile} onReset={resetDocument} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} /></AppShell></WouterRouter></TooltipProvider></QueryClientProvider>;
 }
 
 export default App;

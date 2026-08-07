@@ -6,6 +6,27 @@ export type LocalAnswer = { answer: string; type: 'extraction' | 'reasoning' | '
 export const isPdfFile = (file: Pick<File, 'name' | 'type'>) =>
   file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
 
+export async function validateDocumentFile(file: File): Promise<string | null> {
+  const bytes = new Uint8Array(await file.slice(0, 512).arrayBuffer());
+  if (isPdfFile(file)) {
+    return new TextDecoder().decode(bytes.slice(0, 5)) === '%PDF-' ? null : 'This file is not a valid PDF. Choose an uncorrupted PDF form.';
+  }
+
+  const isPng = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47 && bytes[4] === 0x0d && bytes[5] === 0x0a && bytes[6] === 0x1a && bytes[7] === 0x0a;
+  const isJpeg = bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
+  const isGif = bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46;
+  const isWebp = bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 && bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
+  const isSvg = /^\s*(?:<\?xml[^>]*>\s*)?<svg\b/i.test(new TextDecoder().decode(bytes));
+  return isPng || isJpeg || isGif || isWebp || isSvg ? null : 'This image is corrupted or uses an unsupported format. Choose a PNG, JPG, WEBP, GIF, or SVG form.';
+}
+
+export function getOcrErrorMessage(error: unknown, isPdf: boolean) {
+  const message = error instanceof Error ? error.message.toLowerCase() : '';
+  if (message.includes('worker') || message.includes('wasm') || message.includes('traineddata') || message.includes('networkerror')) return 'Local OCR files are unavailable. Reinstall the app assets and try again.';
+  if (isPdf) return 'This PDF is damaged, password-protected, or unsupported. Choose another PDF form.';
+  return 'Local OCR could not read this image. Try a sharper photo with clear, well-lit text.';
+}
+
 const csvLine = (line: string) => {
   const out: string[] = []; let cell = ''; let quoted = false;
   for (let i = 0; i < line.length; i += 1) { const c = line[i]; if (c === '"' && line[i + 1] === '"') { cell += '"'; i += 1; } else if (c === '"') quoted = !quoted; else if (c === ',' && !quoted) { out.push(cell); cell = ''; } else cell += c; }
@@ -71,9 +92,9 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
 
 export function answerFromDocument(text: string, question: string): LocalAnswer {
   const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-  const normalized = question.toLowerCase();
+  const normalized = normalize(question);
   const reasoning = /eligible|eligib|income cap|household|qualif|pension|scholarship|ration|पात्र|అర్హ|যোগ্য|தகுதி/i.test(question);
-  const sourceLine = findBestLine(lines, normalized);
+  const source = findBestLine(lines, normalized);
 
   if (reasoning) {
     const income = findNumber(lines, /income|earnings|salary|ఆదాయ|आय|আয়/i);
@@ -85,7 +106,7 @@ export function answerFromDocument(text: string, question: string): LocalAnswer 
         answer: `${eligible ? 'Yes' : 'No'} — I found annual income of ₹${income.toLocaleString('en-IN')} and a household size of ${members}. Using the visible demo rule of an income cap of ₹${cap.toLocaleString('en-IN')} and at least 4 household members, this is ${eligible ? 'eligible' : 'not eligible'}.`,
         type: 'reasoning',
         confidence: 0.84,
-        source: sourceLine || 'OCR text · income and household lines',
+        source: source?.line || 'OCR text · income and household lines',
       };
     }
     return {
@@ -96,7 +117,7 @@ export function answerFromDocument(text: string, question: string): LocalAnswer 
     };
   }
 
-  if (!sourceLine || score(sourceLine, normalized) < 0.08) {
+  if (!source || source.score < 0.18) {
     return {
       answer: 'I could not find a close match in this form. Try asking for the applicant name, district, annual income, family members, category, address, or eligibility.',
       type: 'not-found',
@@ -105,14 +126,14 @@ export function answerFromDocument(text: string, question: string): LocalAnswer 
     };
   }
 
-  const answer = sourceLine.includes(':') ? sourceLine.split(':').slice(1).join(':').trim() : sourceLine;
-  return { answer: answer || sourceLine, type: 'extraction', confidence: Math.min(0.96, 0.62 + score(sourceLine, normalized) * 0.28), source: `OCR line · ${sourceLine.slice(0, 72)}` };
+  const answer = source.line.includes(':') ? source.line.split(':').slice(1).join(':').trim() : source.line;
+  return { answer: answer || source.line, type: 'extraction', confidence: Math.min(0.96, 0.52 + source.score * 0.44), source: `OCR line · ${source.line.slice(0, 72)}` };
 }
 
-function findBestLine(lines: string[], query: string) {
+function findBestLine(lines: string[], query: string[]) {
   return lines
-    .map((line) => ({ line, value: score(line, query) }))
-    .sort((a, b) => b.value - a.value)[0]?.line;
+    .map((line) => ({ line, score: score(line, query) }))
+    .sort((a, b) => b.score - a.score)[0];
 }
 
 function findNumber(lines: string[], pattern: RegExp) {
@@ -122,19 +143,11 @@ function findNumber(lines: string[], pattern: RegExp) {
   return value ? Number(value[0]) : null;
 }
 
-export function answerLocally(records: CorpusRecord[], formId: string, lang: string, question: string) {
-  const pool = records.filter((r) => r.form_id === formId && (r.lang === lang || r.lang === 'en'));
-  const normalized = question.toLowerCase();
-  const reasoning = /eligible|eligib|income cap|household|qualif|पात्र|అర్హ|যোগ্য|தகுதி/i.test(question);
-  const candidate = reasoning ? pool.find((r) => r.type === 'reasoning') : pool.filter((r) => r.type === 'extraction').sort((a, b) => score(b.question, normalized) - score(a.question, normalized))[0];
-  if (!candidate || (!reasoning && score(candidate.question, normalized) < 0.16)) return { answer: 'I could not find a close match in this local form. Try asking for the applicant name, district, annual income, family members, category, or eligibility.', type: 'not-found', confidence: 0.38, source: 'Local corpus search' };
-  if (reasoning) {
-    const income = Number(pool.find((r) => /income/i.test(r.qid) && r.lang === 'en')?.answer || 0);
-    const members = Number(pool.find((r) => /family_members/i.test(r.qid) && r.lang === 'en')?.answer || 0);
-    const cap = 250000;
-    const eligible = income <= cap && members >= 4;
-    return { answer: `${eligible ? 'Yes' : 'No'} — annual income is ₹${income.toLocaleString('en-IN')}, household size is ${members}, and this local rule uses an income cap of ₹${cap.toLocaleString('en-IN')} with at least 4 household members.`, type: 'reasoning', confidence: 0.94, source: candidate.qid };
-  }
-  return { answer: candidate.answer, type: 'extraction', confidence: Math.min(.98, .74 + score(candidate.question, normalized) * .24), source: candidate.qid };
+function normalize(text: string) { return text.toLocaleLowerCase().match(/[\p{L}\p{M}\p{N}]+/gu) ?? []; }
+function score(text: string, query: string[]) {
+  const lineTokens = new Set(normalize(text));
+  const queryTokens = [...new Set(query)].filter((token) => token.length > 1);
+  if (!queryTokens.length) return 0;
+  const matches = queryTokens.filter((token) => lineTokens.has(token)).length;
+  return matches / queryTokens.length;
 }
-function score(text: string, query: string) { const words = text.toLowerCase().replace(/[?().]/g, '').split(/\s+/).filter(Boolean); return words.filter((word) => query.includes(word)).length / Math.max(words.length, 1); }

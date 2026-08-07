@@ -10,11 +10,12 @@ import {
 } from 'lucide-react';
 import {
   answerFromDocument,
-  answerLocally,
   CorpusRecord,
   extractTextFromFile,
+  getOcrErrorMessage,
   isPdfFile,
   loadCorpus,
+  validateDocumentFile,
   type LocalAnswer,
   type OcrLanguage,
 } from '@/lib/local-assistant';
@@ -34,6 +35,14 @@ const languages = [
   { id: 'en' as LangChoice, label: 'English', note: 'OCR and questions ready offline' },
   { id: 'te' as LangChoice, label: 'తెలుగు', note: 'OCR and questions ready offline' },
 ];
+
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+const readPreference = (key: string) => {
+  try { return window.localStorage.getItem(key); } catch { return null; }
+};
+const writePreference = (key: string, value: string) => {
+  try { window.localStorage.setItem(key, value); } catch { /* Storage is optional; the app continues in memory. */ }
+};
 
 function AppShell({ children, document, selectedLang, corpusReady, theme, onToggleTheme }: { children: ReactNode; document: UploadedDocument | null; selectedLang: LangChoice; corpusReady: boolean; theme: 'light' | 'dark'; onToggleTheme: () => void }) {
   const [path] = useLocation();
@@ -126,6 +135,9 @@ function AskPage({ document, selectedLang }: { document: UploadedDocument | null
 }
 
 function AnalyticsPage({ corpus }: { corpus: CorpusRecord[] }) {
+  // Accuracy and handset data must come from reproducible report inputs; never show invented metrics.
+  return <div className="space-y-8"><PageHeading eyebrow="Evaluation / reproducible reports" title="Measure on the device." description="The bundled PSI-2 QA file is available locally. Accuracy, tokenizer and handset reports are generated from real runs outside the app." action={<div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-2 font-data text-[10px] font-bold uppercase tracking-wide text-foreground/70"><Activity size={14} /> report inputs required</div>} /><section className="grid gap-4 sm:grid-cols-3"><Metric icon={Database} label="QA records" value={corpus.length.toLocaleString()} detail="bundled qa_flat.csv equivalent" /><Metric icon={Languages} label="Languages" value={new Set(corpus.map((record) => record.lang)).size.toString()} detail="parallel evaluation corpus" /><Metric icon={Activity} label="Measured results" value="—" detail="run the local report scripts" /></section><section className="rounded-2xl border border-border bg-card p-5 sm:p-7"><p className="font-data text-[10px] uppercase tracking-[.18em] text-muted-foreground">Judge workflow</p><h2 className="mt-1 font-display text-2xl font-bold">No simulated accuracy or hardware claims.</h2><p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Provide local-model predictions for each quantization, 30 or more real handset runs per condition, and tokenizer counts before and after the intervention. The repository converts those inputs into per-language, extraction, reasoning, latency, memory, CPU, throughput and fertility reports.</p><div className="mt-6 grid gap-3 sm:grid-cols-3"><StatusCard icon={Gauge} title="Accuracy" body="qid, quantization and answer predictions" /><StatusCard icon={Timer} title="Handset" body="cold, prefill, decode, RSS, CPU and soak runs" /><StatusCard icon={Cpu} title="Tokenizer" body="before/after token counts for all languages" /></div></section></div>;
+
   const rows = ['en', 'te', 'hi', 'bn', 'ta', 'mr', 'kn'].map((lang) => ({ lang, count: corpus.filter((r) => r.lang === lang).length, accuracy: lang === 'en' ? '96.4%' : lang === 'te' ? '93.1%' : '88.7%' }));
   const types = [{ label: 'Extraction', value: '94.8%', width: '94.8%' }, { label: 'Reasoning', value: '91.2%', width: '91.2%' }];
   return <div className="space-y-8"><PageHeading eyebrow="Evaluation metrics / internal dataset" title="Measure the model, not the citizen." description="The uploaded PSI-2 CSV is kept separate from user forms and used only for evaluation reporting. Device numbers are simulated distributions for the target class." action={<div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-2 font-data text-[10px] font-bold uppercase tracking-wide text-foreground/70"><Activity size={14} /> evaluation only</div>} /><section className="grid gap-4 sm:grid-cols-3"><Metric icon={Gauge} label="Evaluation records" value={corpus.length.toLocaleString()} detail="internal CSV · parsed locally" /><Metric icon={Timer} label="Warm response" value="182 ms" detail="simulated p50" /><Metric icon={Cpu} label="Token throughput" value="18.6 tok/s" detail="simulated median" /></section><div className="grid gap-5 lg:grid-cols-[1.1fr_.9fr]"><section className="rounded-2xl border border-border bg-card p-5 sm:p-7"><div className="mb-6 flex items-end justify-between"><div><p className="font-data text-[10px] uppercase tracking-[.18em] text-muted-foreground">Accuracy by language</p><h2 className="mt-1 font-display text-2xl font-bold">Where answers land</h2></div><span className="font-data text-[10px] text-muted-foreground">N = evaluation corpus</span></div><div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead className="font-data text-[9px] uppercase tracking-[.14em] text-muted-foreground"><tr><th className="pb-3">Language</th><th className="pb-3">Records</th><th className="pb-3">Accuracy</th><th className="pb-3">Signal</th></tr></thead><tbody>{rows.map((row) => <tr key={row.lang} className="border-t border-border/70"><td className="py-3 font-semibold">{row.lang === 'te' ? 'Telugu' : row.lang === 'en' ? 'English' : row.lang}</td><td className="py-3 font-data text-xs text-muted-foreground">{row.count}</td><td className="py-3 font-data text-xs">{row.accuracy}</td><td className="py-3"><div className="h-1.5 w-24 overflow-hidden rounded-full bg-secondary"><div className="h-full rounded-full bg-primary" style={{ width: row.accuracy }} /></div></td></tr>)}</tbody></table></div></section><section className="rounded-2xl border border-border bg-[#e4e8dc] p-5 sm:p-7"><p className="font-data text-[10px] uppercase tracking-[.18em] text-primary">Question type</p><h2 className="mt-1 font-display text-2xl font-bold text-primary">Reasoning stays visible</h2><div className="mt-7 space-y-6">{types.map((type) => <div key={type.label}><div className="mb-2 flex justify-between text-sm font-semibold text-primary"><span>{type.label}</span><span className="font-data text-xs">{type.value}</span></div><div className="h-2 rounded-full bg-primary/10"><div className="h-full rounded-full bg-accent" style={{ width: type.width }} /></div></div>)}</div><div className="mt-8 border-t border-primary/15 pt-4 text-[12px] leading-relaxed text-primary/70">These scores describe the internal evaluation corpus. They do not read or alter the form uploaded by a citizen.</div></section></div><section className="rounded-2xl border border-border bg-card p-5 sm:p-7"><div className="mb-6 flex items-end justify-between"><div><p className="font-data text-[10px] uppercase tracking-[.18em] text-muted-foreground">Simulated device distributions</p><h2 className="mt-1 font-display text-2xl font-bold">The quiet hardware profile</h2></div><span className="rounded-full border border-border px-3 py-1 font-data text-[9px] uppercase text-muted-foreground">target class ≤ ₹12,000</span></div><div className="grid gap-x-8 gap-y-5 md:grid-cols-2">{[['Cold latency', '1.4 s', '0.9 — 2.2 s', Timer], ['Warm latency', '182 ms', '120 — 310 ms', Gauge], ['RSS memory', '840 MB', '620 — 1,140 MB', Database], ['Thermal throughput', '17.8 tok/s', '12.4 — 22.1 tok/s', Thermometer]].map(([label, value, range, Icon]) => { const MetricIcon = Icon as typeof Cpu; return <div key={String(label)} className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-lg bg-secondary text-primary"><MetricIcon size={16} /></span><div className="min-w-0 flex-1"><div className="flex justify-between text-sm font-semibold"><span>{String(label)}</span><span className="font-data text-xs">{String(value)}</span></div><div className="mt-2 h-1.5 rounded-full bg-secondary"><div className="h-full w-2/3 rounded-full bg-primary" /></div><div className="mt-1 font-data text-[9px] text-muted-foreground">P10 — P90 {String(range)}</div></div></div>; })}</div></section></div>;
@@ -166,8 +178,8 @@ function RouterView({ corpus, document, selectedLang, setSelectedLang, onSelectF
 function App() {
   const [corpus, setCorpus] = useState<CorpusRecord[]>([]);
   const [document, setDocument] = useState<UploadedDocument | null>(null);
-  const [selectedLang, setSelectedLang] = useState<LangChoice>(() => (localStorage.getItem('namma-lang') as LangChoice) || 'en');
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => (localStorage.getItem('namma-theme') as 'light' | 'dark') || 'light');
+  const [selectedLang, setSelectedLang] = useState<LangChoice>(() => readPreference('namma-lang') === 'te' ? 'te' : 'en');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => readPreference('namma-theme') === 'dark' ? 'dark' : 'light');
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [processingLabel, setProcessingLabel] = useState('');
@@ -175,8 +187,8 @@ function App() {
   const uploadId = useRef(0);
 
   useEffect(() => { loadCorpus().then(setCorpus).catch(() => setCorpus([])); }, []);
-  useEffect(() => { localStorage.setItem('namma-lang', selectedLang); }, [selectedLang]);
-  useEffect(() => { window.document.documentElement.classList.toggle('dark', theme === 'dark'); localStorage.setItem('namma-theme', theme); }, [theme]);
+  useEffect(() => { writePreference('namma-lang', selectedLang); }, [selectedLang]);
+  useEffect(() => { window.document.documentElement.classList.toggle('dark', theme === 'dark'); writePreference('namma-theme', theme); }, [theme]);
   useEffect(() => () => { if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl); }, [document?.previewUrl]);
   useEffect(() => {
     const handleTextChange = (event: Event) => {
@@ -188,9 +200,11 @@ function App() {
   }, []);
 
   const resetDocument = () => {
+    uploadId.current += 1;
     if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl);
     setDocument(null);
     setError(null);
+    setIsProcessing(false);
     setProgress(0);
     setProcessingLabel('');
   };
@@ -199,6 +213,19 @@ function App() {
     const accepted = file.type.startsWith('image/') || isPdfFile(file);
     if (!accepted) {
       setError('Please choose an image or PDF form.');
+      return;
+    }
+    if (file.size === 0) {
+      setError('This file is empty. Choose a readable image or PDF form.');
+      return;
+    }
+    if (file.size > MAX_UPLOAD_BYTES) {
+      setError('This file is larger than 15 MB. Use a smaller image or PDF to keep local OCR reliable.');
+      return;
+    }
+    const validationError = await validateDocumentFile(file);
+    if (validationError) {
+      setError(validationError);
       return;
     }
     const currentUploadId = ++uploadId.current;
@@ -223,7 +250,7 @@ function App() {
       window.dispatchEvent(new PopStateEvent('popstate'));
     } catch (caught) {
       if (currentUploadId === uploadId.current) URL.revokeObjectURL(previewUrl);
-      if (currentUploadId === uploadId.current) setError(caught instanceof Error ? caught.message : 'Local OCR could not read this file. Try another image or PDF.');
+      if (currentUploadId === uploadId.current) setError(getOcrErrorMessage(caught, isPdfFile(file)));
     } finally {
       if (currentUploadId === uploadId.current) setIsProcessing(false);
     }

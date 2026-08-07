@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "hello": "tsx ./src/hello.ts",
+    "audit:ai": "tsx ./src/ai-pipeline-audit.ts",
+    "report:accuracy": "tsx ./src/evaluate-qa.ts",
+    "report:benchmark": "tsx ./src/benchmark-report.ts",
+    "report:tokenizer": "tsx ./src/tokenizer-report.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {

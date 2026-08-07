@@ -7,9 +7,14 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "build": "vite build --config vite.config.ts",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
+    "android:add": "cap add android",
+    "android:sync": "pnpm run build && cap sync android",
+    "android:apk": "pnpm run android:sync && cap build android --androidreleasetype APK",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
+    "@capacitor/android": "7.4.4",
+    "@capacitor/cli": "7.4.4",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.4",
     "@radix-ui/react-alert-dialog": "^1.1.7",
@@ -80,6 +85,7 @@
     "zod": "catalog:"
   },
   "dependencies": {
+    "@capacitor/core": "7.4.4",
     "@tesseract.js-data/eng": "^1.0.0",
     "@tesseract.js-data/tel": "^1.0.0"
   }

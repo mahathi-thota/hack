@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Namma Form</string>
+    <string name="title_activity_main">Namma Form</string>
+    <string name="package_name">org.aignite.psi2</string>
+    <string name="custom_url_scheme">org.aignite.psi2</string>
+</resources>

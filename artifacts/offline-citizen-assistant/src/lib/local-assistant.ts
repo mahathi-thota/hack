@@ -49,7 +49,7 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
         canvas.height = Math.ceil(viewport.height);
         const context = canvas.getContext('2d');
         if (!context) continue;
-        await page.render({ canvasContext: context, viewport }).promise;
+        await page.render({canvas,canvasContext: context,viewport,}).promise;
         const result = await worker.recognize(canvas);
         pageText.push(`Page ${index}\n${result.data.text.trim()}`);
         onProgress?.({ status: `OCR page ${index} of ${pages}`, progress: index / pages });

@@ -3,7 +3,8 @@ import { fileURLToPath } from 'url';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
-
+const __filename = fileURLToPath(import.meta.url);
+const configDirectory = path.dirname(__filename);
 import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 const configDirectory = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 5173);

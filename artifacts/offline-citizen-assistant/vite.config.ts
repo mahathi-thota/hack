@@ -5,7 +5,6 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const configDirectory = path.dirname(__filename);
-import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
 const port = Number(process.env.PORT || 5173);
 const basePath = process.env.BASE_PATH || "/";
 // const rawPort = process.env.PORT;
@@ -35,20 +34,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== 'production' &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import('@replit/vite-plugin-cartographer').then((m) =>
-            m.cartographer({
-              root: path.resolve(configDirectory, '..'),
-            }),
-          ),
-          await import('@replit/vite-plugin-dev-banner').then((m) =>
-            m.devBanner(),
-          ),
-        ]
-      : []),
   ],
   resolve: {
     alias: {

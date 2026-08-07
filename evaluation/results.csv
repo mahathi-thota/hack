@@ -1,0 +1,16 @@
+language,type,total,correct,accuracy
+en,extraction,600,600,1
+en,reasoning,120,120,1
+hi,extraction,600,600,1
+hi,reasoning,120,120,1
+bn,extraction,600,600,1
+bn,reasoning,120,120,1
+te,extraction,600,600,1
+te,reasoning,120,120,1
+ta,extraction,600,600,1
+ta,reasoning,120,120,1
+mr,extraction,600,600,1
+mr,reasoning,120,120,1
+kn,extraction,600,600,1
+kn,reasoning,120,0,0
+overall,all,5040,4920,0.9761904761904762

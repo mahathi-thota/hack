@@ -1,0 +1,54 @@
+[
+  {
+    "device_id": "D1",
+    "model_class": "entry_2022",
+    "price_band_inr": "8000-10000",
+    "soc": "octa-core A53-class 2.0GHz",
+    "ram_gb": 3,
+    "usable_ram_mb": 1250,
+    "storage": "eMMC 5.1",
+    "seq_read_mbps": 290,
+    "thermal_budget_w": 2.5,
+    "sustained_clock_ratio": 0.62,
+    "android": 11
+  },
+  {
+    "device_id": "D2",
+    "model_class": "entry_2023",
+    "price_band_inr": "9000-12000",
+    "soc": "octa-core A55-class 2.2GHz",
+    "ram_gb": 4,
+    "usable_ram_mb": 1750,
+    "storage": "UFS 2.2",
+    "seq_read_mbps": 850,
+    "thermal_budget_w": 3.0,
+    "sustained_clock_ratio": 0.7,
+    "android": 13
+  },
+  {
+    "device_id": "D3",
+    "model_class": "budget_2021",
+    "price_band_inr": "7000-9000",
+    "soc": "quad-core A53-class 1.8GHz",
+    "ram_gb": 2,
+    "usable_ram_mb": 780,
+    "storage": "eMMC 5.1",
+    "seq_read_mbps": 210,
+    "thermal_budget_w": 2.2,
+    "sustained_clock_ratio": 0.55,
+    "android": 10
+  },
+  {
+    "device_id": "D4",
+    "model_class": "midrange_2024_reference",
+    "price_band_inr": "18000-22000",
+    "soc": "octa-core A78-class 2.4GHz",
+    "ram_gb": 8,
+    "usable_ram_mb": 4200,
+    "storage": "UFS 3.1",
+    "seq_read_mbps": 1600,
+    "thermal_budget_w": 4.5,
+    "sustained_clock_ratio": 0.82,
+    "android": 14
+  }
+]

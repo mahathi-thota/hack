@@ -10,7 +10,9 @@
     "android:add": "cap add android",
     "android:sync": "pnpm run build && cap sync android",
     "android:apk": "pnpm run android:sync && cap build android --androidreleasetype APK",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "android:apk:release": "pnpm run android:sync && cd android && gradlew.bat assembleRelease",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "evaluate:psi2": "node ../../scripts/node_modules/tsx/dist/cli.mjs ../../scripts/src/real-psi2-evaluation.ts"
   },
   "devDependencies": {
     "@capacitor/android": "7.4.4",

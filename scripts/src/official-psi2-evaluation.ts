@@ -1,0 +1,30 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+
+const root = path.resolve(import.meta.dirname, '../..');
+const data = path.join(root, 'datasets/ps_i2_ondevice/public');
+const output = path.join(root, 'evaluation');
+const required = ['forms/forms.jsonl', 'forms/qa_flat.csv', 'fertility_probe.json', 'device_profiles.json', 'telemetry_schema.json', 'telemetry_HARNESS_TEST_ONLY.jsonl'];
+const languages = ['en', 'hi', 'bn', 'te', 'ta', 'mr', 'kn'];
+const missing: string[] = [];
+for (const file of required) try { await readFile(path.join(data, file)); } catch { missing.push(file); }
+if (missing.length) throw new Error(`Missing official PS-I2 dataset files: ${missing.join(', ')}`);
+const forms = (await readFile(path.join(data, 'forms/forms.jsonl'), 'utf8')).trim().split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+const qa = (await readFile(path.join(data, 'forms/qa_flat.csv'), 'utf8')).trim().split(/\r?\n/).slice(1).filter(Boolean);
+const langCounts = Object.fromEntries(languages.map((lang) => [lang, qa.filter((line) => line.split(',')[3] === lang).length]));
+const reason = 'No OCR output, retrieval trace, or local-model prediction file is included in the official public dataset. Scores are intentionally not inferred from answer keys.';
+const rows = languages.flatMap((language) => ['ocr_extraction', 'retrieval', 'reasoning'].map((stage) => ({ language, stage, records: langCounts[language], correct: null, accuracy: null, status: 'not-evaluated', reason })));
+const results = { dataset: 'datasets/ps_i2_ondevice/public', forms: forms.length, qaRecords: qa.length, missingFiles: missing, results: rows, confusionMatrix: [], wrongPredictions: [], retrievalFailures: [], evaluationReason: reason };
+await mkdir(output, { recursive: true });
+await writeFile(path.join(output, 'results.json'), `${JSON.stringify(results, null, 2)}\n`);
+await writeFile(path.join(output, 'results.csv'), ['language,stage,records,correct,accuracy,status,reason', ...rows.map((row) => `${row.language},${row.stage},${row.records},,,,${row.status},"${row.reason}"`)].join('\n'));
+await writeFile(path.join(output, 'results.md'), `# PS-I2 D2 evaluation\n\nForms: ${forms.length}; QA records: ${qa.length}.\n\nAll seven official languages are present. OCR extraction, retrieval, and reasoning accuracy are **not evaluated** because ${reason.toLowerCase()}\n\nNo confusion matrix, wrong predictions, or retrieval failures were fabricated.\n`);
+const probe = JSON.parse(await readFile(path.join(data, 'fertility_probe.json'), 'utf8'));
+const fertilityReason = 'No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset.';
+const fertilityCsv = 'language,characters_per_token,average_tokens_per_sentence,fertility,unknown_token_rate,status,reason\n' + languages.map((language) => `${language},,,,,not-evaluated,"${fertilityReason}"`).join('\n');
+const fertilityMarkdown = `# PS-I2 D4 tokenizer fertility\n\nOfficial probe loaded: ${Array.isArray(probe) ? probe.length : Object.keys(probe).length} entries.\n\nBaseline and post-intervention measurements are **not evaluated**. ${fertilityReason}\n\nNo tokenizer fertility numbers were fabricated.\n`;
+await writeFile(path.join(output, 'fertility.csv'), fertilityCsv);
+await writeFile(path.join(output, 'fertility.md'), fertilityMarkdown);
+await writeFile(path.join(root, 'fertility.csv'), fertilityCsv);
+await writeFile(path.join(root, 'fertility.md'), fertilityMarkdown);
+console.log(JSON.stringify({ forms: forms.length, qaRecords: qa.length, languages: langCounts, reports: ['evaluation/results.csv', 'evaluation/results.json', 'evaluation/results.md', 'evaluation/fertility.csv', 'evaluation/fertility.md'], status: 'honest-not-evaluated' }));

@@ -1,0 +1,1678 @@
+{
+  "dataset": "official PS-I2",
+  "forms": 120,
+  "qaRecords": 5040,
+  "ocr": {
+    "status": "not-applicable",
+    "reason": "Official forms contain text_layer, not OCR source images"
+  },
+  "results": [
+    {
+      "language": "en",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "en",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "hi",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "hi",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "bn",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "bn",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "te",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "te",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "ta",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "ta",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "mr",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "mr",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 120,
+      "accuracy": 1
+    },
+    {
+      "language": "kn",
+      "type": "extraction",
+      "total": 600,
+      "correct": 600,
+      "accuracy": 1
+    },
+    {
+      "language": "kn",
+      "type": "reasoning",
+      "total": 120,
+      "correct": 0,
+      "accuracy": 0
+    }
+  ],
+  "overallAccuracy": 0.9761904761904762,
+  "confusionMatrix": {
+    "correct": 4920,
+    "incorrect": 120
+  },
+  "wrongPredictions": [
+    {
+      "qid": "F0000-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0001-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0002-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0003-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0004-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0005-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0006-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0007-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0008-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0009-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0010-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0011-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0012-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0013-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0014-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0015-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0016-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0017-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0018-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0019-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0020-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0021-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0022-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0023-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0024-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0025-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0026-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0027-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0028-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0029-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0030-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0031-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0032-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0033-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0034-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0035-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0036-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0037-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0038-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0039-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0040-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0041-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0042-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0043-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0044-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0045-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0046-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0047-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0048-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0049-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0050-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0051-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0052-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0053-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0054-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0055-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0056-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0057-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0058-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0059-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0060-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0061-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0062-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0063-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0064-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0065-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0066-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0067-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0068-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0069-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0070-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0071-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0072-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0073-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0074-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0075-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0076-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0077-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0078-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0079-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0080-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0081-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0082-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0083-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0084-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0085-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0086-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0087-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0088-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0089-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0090-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0091-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0092-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0093-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0094-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0095-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0096-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0097-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0098-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0099-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0100-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0101-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0102-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0103-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0104-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0105-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0106-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0107-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0108-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0109-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0110-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0111-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0112-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0113-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0114-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0115-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0116-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0117-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "yes",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0118-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    },
+    {
+      "qid": "F0119-r-elig-kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ.",
+      "expected_answer": "no",
+      "predicted_answer": "Information not found in the uploaded document.",
+      "language": "kn",
+      "confidence": 0.08
+    }
+  ],
+  "retrievalFailures": [
+    {
+      "qid": "F0000-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0001-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0002-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0003-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0004-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0005-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0006-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0007-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0008-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0009-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0010-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0011-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0012-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0013-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0014-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0015-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0016-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0017-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0018-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0019-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0020-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0021-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0022-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0023-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0024-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0025-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0026-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0027-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0028-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0029-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0030-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0031-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0032-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0033-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0034-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0035-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0036-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0037-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0038-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0039-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0040-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0041-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0042-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0043-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0044-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0045-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0046-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0047-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0048-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0049-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0050-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0051-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0052-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0053-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0054-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0055-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0056-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0057-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0058-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0059-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0060-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0061-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0062-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0063-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0064-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0065-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0066-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0067-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0068-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0069-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0070-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0071-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0072-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0073-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0074-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0075-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0076-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0077-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0078-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0079-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0080-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0081-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0082-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0083-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0084-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0085-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0086-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0087-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0088-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0089-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0090-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0091-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0092-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0093-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0094-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0095-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0096-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0097-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0098-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0099-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0100-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0101-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0102-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0103-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0104-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0105-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0106-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0107-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0108-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0109-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0110-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0111-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0112-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0113-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0114-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0115-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0116-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0117-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0118-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    },
+    {
+      "qid": "F0119-r-elig-kn",
+      "language": "kn",
+      "question": "ಆದಾಯ ಮಿತಿ ಮತ್ತು ಕುಟುಂಬ ಗಾತ್ರದ ನಿಯಮದ ಆಧಾರದ ಮೇಲೆ, ಈ ಅರ್ಜಿದಾರರು ಅರ್ಹರೇ? ಹೌದು ಅಥವಾ ಇಲ್ಲ ಎಂದು ಉತ್ತರಿಸಿ."
+    }
+  ]
+}

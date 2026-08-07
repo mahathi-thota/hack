@@ -3,13 +3,13 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Link, Router as WouterRouter, useLocation } from 'wouter';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
-  Activity, ArrowRight, BarChart3, Camera, Check, ChevronRight, CircleHelp, Cpu,
-  Database, FileText, FileUp, Gauge, Info, Languages, LockKeyhole, Menu, MessageCircle,
-  Moon, Network, PanelLeft, Plane, RotateCcw, Send, ShieldCheck, SlidersHorizontal,
-  Sparkles, Thermometer, Timer, Upload, X,
+  Activity, ArrowRight, BarChart3, Check, ChevronRight, CircleHelp, Cpu, Database,
+  FileText, FileUp, Gauge, Info, Languages, LockKeyhole, Menu, MessageCircle, Network,
+  PanelLeft, Plane, RotateCcw, Send, ShieldCheck, Sparkles, Thermometer, Timer, Upload, WifiOff, X,
 } from 'lucide-react';
 import {
   answerFromDocument,
+  confidenceLabel,
   CorpusRecord,
   extractTextFromFile,
   getOcrErrorMessage,
@@ -19,17 +19,24 @@ import {
   type LocalAnswer,
   type OcrLanguage,
 } from '@/lib/local-assistant';
+import { loadOfficialDataset, type OfficialForm, type OfficialQuestion } from '@/lib/official-dataset';
+import { OfflineVerification } from '@/components/offline-verification';
 
 const queryClient = new QueryClient();
 type LangChoice = 'en' | 'te';
-type UploadSource = 'upload' | 'camera';
+type UploadSource = 'upload';
+type DocumentSource = UploadSource | 'official';
 type UploadedDocument = {
   name: string;
   type: string;
   previewUrl?: string;
   text: string;
-  source: UploadSource;
+  source: DocumentSource;
+  officialQuestions?: string[];
+  officialLanguage?: string;
+  eligibilityRule?: { incomeMax: number; minMembers: number };
 };
+function assertLoadedDocument(value: UploadedDocument | null): asserts value is UploadedDocument { if (!value) throw new Error('A document is required for question answering.'); }
 
 const languages = [
   { id: 'en' as LangChoice, label: 'English', note: 'OCR and questions ready offline' },
@@ -44,15 +51,15 @@ const writePreference = (key: string, value: string) => {
   try { window.localStorage.setItem(key, value); } catch { /* Storage is optional; the app continues in memory. */ }
 };
 
-function AppShell({ children, document, selectedLang, corpusReady, theme, onToggleTheme }: { children: ReactNode; document: UploadedDocument | null; selectedLang: LangChoice; corpusReady: boolean; theme: 'light' | 'dark'; onToggleTheme: () => void }) {
+function AppShell({ children, document, selectedLang, corpusReady }: { children: ReactNode; document: UploadedDocument | null; selectedLang: LangChoice; corpusReady: boolean }) {
   const [path] = useLocation();
   const [open, setOpen] = useState(false);
   const nav = [
     { href: '/', label: 'Add a form', icon: FileUp },
+    { href: '/official-dataset', label: 'Official dataset', icon: Database },
     { href: '/form', label: 'Review OCR', icon: PanelLeft },
     { href: '/ask', label: 'Ask locally', icon: MessageCircle },
-    { href: '/analytics', label: 'Evaluation metrics', icon: BarChart3 },
-    { href: '/limits', label: 'Boundaries', icon: SlidersHorizontal },
+    { href: '/offline', label: 'Offline verification', icon: WifiOff },
   ];
 
   return <div className="grain min-h-[100dvh] bg-background">
@@ -80,18 +87,19 @@ function AppShell({ children, document, selectedLang, corpusReady, theme, onTogg
       <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-border/70 bg-background/90 px-5 backdrop-blur-md sm:px-8 lg:px-12">
         <button onClick={() => setOpen(true)} className="rounded-lg p-2 text-foreground lg:hidden" aria-label="Open menu" data-testid="button-open-menu"><Menu size={21} /></button>
         <div className="hidden items-center gap-2 text-[12px] text-muted-foreground sm:flex"><span className="font-data text-[10px] uppercase tracking-[.14em]">Device local</span><span className="h-1 w-1 rounded-full bg-accent" /><span>{document ? `${document.name} · ${selectedLang === 'en' ? 'English' : 'Telugu'}` : 'No form loaded'}</span></div>
-        <div className="ml-auto flex items-center gap-2"><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span><button onClick={onToggleTheme} className="rounded-lg p-2 text-muted-foreground hover:bg-secondary" aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} data-testid="button-theme"><Moon size={17} /></button></div>
+        <div className="ml-auto flex items-center gap-2"><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span></div>
       </header>
       <main className="mx-auto max-w-[1380px] px-5 py-8 sm:px-8 lg:px-12 lg:py-12">{children}</main>
     </div>
   </div>;
 }
 
-function HomePage({ document, selectedLang, setSelectedLang, onSelectFile, isProcessing, progress, processingLabel, error }: {
+function HomePage({ document, selectedLang, setSelectedLang, onSelectFile, onOpenOfficialDataset, isProcessing, progress, processingLabel, error }: {
   document: UploadedDocument | null;
   selectedLang: LangChoice;
   setSelectedLang: (language: LangChoice) => void;
   onSelectFile: (file: File, source: UploadSource) => void;
+  onOpenOfficialDataset: () => void;
   isProcessing: boolean;
   progress: number;
   processingLabel: string;
@@ -100,37 +108,55 @@ function HomePage({ document, selectedLang, setSelectedLang, onSelectFile, isPro
   const [, navigate] = useLocation();
   return <div className="space-y-10">
     <section className="rise grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
-      <div><div className="mb-5 flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-[.2em] text-primary"><Sparkles size={14} /> a quieter way through paperwork</div><h1 className="max-w-[680px] font-display text-[clamp(44px,6vw,82px)] font-bold leading-[.94] tracking-[-.045em] text-foreground">Understand your form.<br /><span className="text-primary">Keep your data.</span></h1><p className="mt-6 max-w-[560px] text-[17px] leading-relaxed text-muted-foreground">Upload a government form or capture it with your camera. Namma Form extracts the text on this device, then helps you ask questions without sending personal information anywhere.</p></div>
+      <div><div className="mb-5 flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-[.2em] text-primary"><Sparkles size={14} /> a quieter way through paperwork</div><h1 className="max-w-[680px] font-display text-[clamp(44px,6vw,82px)] font-bold leading-[.94] tracking-[-.045em] text-foreground">Understand your form.<br /><span className="text-primary">Keep your data.</span></h1><p className="mt-6 max-w-[560px] text-[17px] leading-relaxed text-muted-foreground">Upload a government form from your device. Namma Form extracts the text locally, then helps you ask questions without sending personal information anywhere.</p></div>
       <div className="paper-grid relative overflow-hidden rounded-[22px] border border-border bg-[#e4e8dc] p-6 sm:p-8"><div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border-[18px] border-accent/20" /><div className="relative"><div className="mb-10 flex items-center justify-between"><span className="font-data text-[10px] uppercase tracking-[.18em] text-primary">LOCAL / INTAKE</span><ShieldCheck size={23} className="text-primary" /></div><div className="font-display text-[31px] font-bold leading-tight text-primary">Your document<br />stays with you.</div><div className="mt-8 flex items-center gap-3 text-[12px] text-primary/70"><span className="h-px w-8 bg-primary/40" />OCR and questions run locally</div></div></div>
     </section>
 
-    <section className="rise-2 space-y-5"><div><p className="font-data text-[10px] font-bold uppercase tracking-[.2em] text-muted-foreground">Step 01 / add your document</p><h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Bring a form from your device.</h2><p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">Use a JPG, PNG, WEBP, or PDF. On a phone, Camera opens the rear camera so you can capture the paper directly.</p></div>
-      <div className="grid gap-4 md:grid-cols-2">
+    <section className="rise-2 space-y-5"><div><p className="font-data text-[10px] font-bold uppercase tracking-[.2em] text-muted-foreground">Step 01 / add your document</p><h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Bring a form from your device.</h2><p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">Use a JPG, PNG, WEBP, or PDF.</p></div>
+      <div>
         <label className="group flex min-h-[190px] cursor-pointer flex-col justify-between rounded-2xl border border-border bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-sm" data-testid="dropzone-upload"><input type="file" accept="image/*,.pdf,application/pdf" className="sr-only" onChange={(event) => { const file = event.target.files?.[0]; if (file) onSelectFile(file, 'upload'); event.currentTarget.value = ''; }} /><span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary"><Upload size={20} /></span><span><span className="mt-8 block font-display text-[25px] font-bold">Upload a form</span><span className="mt-2 block text-[12px] text-muted-foreground">Choose an image or PDF from this device.</span></span></label>
-        <label className="group flex min-h-[190px] cursor-pointer flex-col justify-between rounded-2xl border border-border bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-sm" data-testid="dropzone-camera"><input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(event) => { const file = event.target.files?.[0]; if (file) onSelectFile(file, 'camera'); event.currentTarget.value = ''; }} /><span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-accent"><Camera size={20} /></span><span><span className="mt-8 block font-display text-[25px] font-bold">Use camera</span><span className="mt-2 block text-[12px] text-muted-foreground">Capture a paper form on a supported device.</span></span></label>
       </div>
+      <button onClick={onOpenOfficialDataset} data-testid="button-load-official-dataset" className="flex w-full items-center justify-between rounded-2xl border border-primary/25 bg-primary/[.05] p-5 text-left transition-colors hover:bg-primary/[.09]"><span className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-xl bg-primary text-primary-foreground"><Database size={19} /></span><span><span className="block text-sm font-bold">Load Official PS-I2 Dataset</span><span className="mt-1 block text-xs text-muted-foreground">Browse bundled forms and ask their official evaluation questions without OCR.</span></span></span><ArrowRight size={17} className="text-primary" /></button>
     </section>
 
     <section className="rise-3 grid gap-5 border-t border-border pt-8 md:grid-cols-[1fr_1fr]"><div><p className="font-data text-[10px] font-bold uppercase tracking-[.2em] text-muted-foreground">Step 02 / language</p><h2 className="mt-2 font-display text-2xl font-bold">Choose the document language.</h2></div><div className="space-y-2">{languages.map((language) => <button key={language.id} onClick={() => setSelectedLang(language.id)} data-testid={`button-language-${language.id}`} className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${selectedLang === language.id ? 'border-primary bg-primary/[.07]' : 'border-border bg-card hover:border-primary/40'}`}><span className="flex items-center gap-3"><span className={`grid h-8 w-8 place-items-center rounded-lg ${selectedLang === language.id ? 'bg-primary text-primary-foreground' : 'bg-secondary text-primary'}`}><Languages size={16} /></span><span><span className="block text-sm font-semibold">{language.label}</span><span className="block text-[11px] text-muted-foreground">{language.note}</span></span></span>{selectedLang === language.id ? <Check size={17} className="text-primary" /> : <span className="font-data text-[10px] text-muted-foreground">SELECT</span>}</button>)}<div className="flex items-center gap-2 pt-1 text-[11px] text-muted-foreground"><Info size={13} /> Other languages are supported by the data model and can be added to the OCR bundle.</div></div></section>
 
     {isProcessing && <section className="rounded-2xl border border-primary/20 bg-primary/[.06] p-5" data-testid="ocr-progress"><div className="flex items-center justify-between text-sm font-semibold"><span className="flex items-center gap-2"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> {processingLabel || 'Preparing local OCR'}</span><span className="font-data text-xs">{Math.round(progress * 100)}%</span></div><div className="mt-4 h-2 overflow-hidden rounded-full bg-primary/10"><div className="h-full rounded-full bg-primary transition-all" style={{ width: `${Math.max(4, progress * 100)}%` }} /></div><p className="mt-3 text-xs text-muted-foreground">The file stays in this browser. No OCR request is sent to a server.</p></section>}
     {error && <div className="rounded-xl border border-destructive/20 bg-destructive/[.06] px-4 py-3 text-sm text-destructive" role="alert">{error}</div>}
-    {document && !isProcessing && <section className="flex flex-col gap-4 rounded-2xl border border-primary/20 bg-primary/[.06] p-5 sm:flex-row sm:items-center sm:justify-between"><div className="flex min-w-0 items-center gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground"><FileText size={18} /></span><div className="min-w-0"><div className="truncate text-sm font-bold">{document.name}</div><div className="mt-1 font-data text-[10px] uppercase tracking-wide text-primary/70">OCR text ready · {document.source === 'camera' ? 'camera capture' : 'local upload'}</div></div></div><button onClick={() => navigate('/form')} data-testid="button-review-uploaded-form" className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground">Review extracted text <ArrowRight size={15} /></button></section>}
+    {document && !isProcessing && <section className="flex flex-col gap-4 rounded-2xl border border-primary/20 bg-primary/[.06] p-5 sm:flex-row sm:items-center sm:justify-between"><div className="flex min-w-0 items-center gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground"><FileText size={18} /></span><div className="min-w-0"><div className="truncate text-sm font-bold">{document.name}</div><div className="mt-1 font-data text-[10px] uppercase tracking-wide text-primary/70">{document.source === 'official' ? 'official text layer ready' : 'OCR text ready · local upload'}</div></div></div><button onClick={() => navigate('/form')} data-testid="button-review-uploaded-form" className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground">Review document text <ArrowRight size={15} /></button></section>}
     <div className="border-t border-border pt-6 text-[11px] leading-relaxed text-muted-foreground"><span className="font-data uppercase tracking-wide text-primary">Evaluation corpus stays separate.</span> The uploaded PSI-2 CSV is used only on Local metrics to evaluate the assistant; it is never treated as a user form or used as the document you ask about.</div>
+  </div>;
+}
+
+function OfficialDatasetPage({ forms, questions, onLoadForm }: { forms: OfficialForm[]; questions: OfficialQuestion[]; onLoadForm: (form: OfficialForm, language: string, formQuestions: string[]) => void }) {
+  const [, navigate] = useLocation();
+  const [language, setLanguage] = useState('en');
+  const [category, setCategory] = useState<string | null>(null);
+  const [notice, setNotice] = useState('');
+  const labels: Record<string, string> = { en: 'English', hi: 'Hindi', bn: 'Bengali', te: 'Telugu', ta: 'Tamil', mr: 'Marathi', kn: 'Kannada' };
+  const categories = [...new Set(forms.map((form) => form.formType))].sort();
+  const categoryForms = category ? forms.filter((form) => form.formType === category) : [];
+  return <div className="space-y-8"><PageHeading eyebrow="Official PS-I2 dataset / no OCR" title={category ? `${category.replaceAll('_', ' ')} forms` : 'Choose a form category.'} description="Official text layers load directly into the same local retrieval and QA pipeline. Upload validation and OCR are not involved." action={<div className="flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-wide text-primary"><Database size={14} /> {forms.length} local forms</div>} />
+    <section className="rounded-2xl border border-border bg-card p-5"><label className="text-sm font-semibold" htmlFor="official-dataset-language">Question and text-layer language</label><select id="official-dataset-language" value={language} onChange={(event) => { setLanguage(event.target.value); setNotice(''); }} className="ml-3 rounded-lg border border-input bg-background px-3 py-2 text-sm">{Object.entries(labels).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select><p className="mt-3 text-xs text-muted-foreground">Select a category, then a form. Its official questions for this language appear as clickable chips in Ask locally; custom questions remain available.</p></section>
+    {notice && <div role="alert" className="rounded-xl border border-amber-600/25 bg-amber-500/10 px-4 py-3 text-sm text-foreground">{notice}</div>}
+    {!category ? <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{categories.map((name) => { const categoryForms = forms.filter((form) => form.formType === name); const categoryQuestions = questions.filter((question) => categoryForms.some((form) => form.formId === question.formId)); return <button key={name} onClick={() => setCategory(name)} className="rounded-2xl border border-border bg-card p-5 text-left transition-colors hover:border-primary/50"><span className="font-display text-xl font-bold capitalize">{name.replaceAll('_', ' ')}</span><span className="mt-3 block text-xs text-muted-foreground">Category</span><span className="mt-1 block text-sm font-semibold">{categoryForms.length} forms · {categoryQuestions.length} official questions</span><span className="mt-5 flex items-center gap-2 text-xs font-bold text-primary">View forms <ArrowRight size={14} /></span></button>; })}</section> : <><button onClick={() => { setCategory(null); setNotice(''); }} className="text-sm font-semibold text-primary hover:underline">← All categories</button><section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{categoryForms.map((form) => { const formQuestions = questions.filter((question) => question.formId === form.formId && question.language === language).map((question) => question.question); const available = Boolean(form.textLayers[language]) && formQuestions.length > 0; return <button key={form.formId} onClick={() => { if (!available) { setNotice('This form is not available in the selected language. Choose another language to continue.'); return; } onLoadForm(form, language, formQuestions); navigate('/ask'); }} className="rounded-2xl border border-border bg-card p-5 text-left transition-colors hover:border-primary/50"><span className="font-data text-[10px] font-bold uppercase tracking-[.16em] text-primary">{form.formId}</span><span className="mt-2 block font-display text-xl font-bold capitalize">{form.formType.replaceAll('_', ' ')}</span><span className="mt-3 block text-xs text-muted-foreground">{available ? `${formQuestions.length} official questions · text layer ready` : 'Not available in selected language'}</span><span className="mt-5 flex items-center gap-2 text-xs font-bold text-primary">{available ? 'Load without OCR' : 'Show availability message'} <ArrowRight size={14} /></span></button>; })}</section></>}
   </div>;
 }
 
 function FormPage({ document, selectedLang, onSelectFile, onReset }: { document: UploadedDocument | null; selectedLang: LangChoice; onSelectFile: (file: File, source: UploadSource) => void; onReset: () => void }) {
   const [, navigate] = useLocation();
-  if (!document) return <EmptyState title="Add a form first" body="Upload a government form or capture it with your camera before reviewing OCR text." action="Add a form" onClick={() => navigate('/')} />;
+  if (!document) return <EmptyState title="Add a form first" body="Upload a government form before reviewing OCR text." action="Add a form" onClick={() => navigate('/')} />;
   return <div className="space-y-8"><PageHeading eyebrow="Review OCR / local document" title="Check what was read." description="Review and edit the extracted text before asking a question. This is the text the local assistant will use." action={<div className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[.06] px-3 py-2 font-data text-[10px] font-bold uppercase tracking-wide text-primary"><Plane size={13} /> offline / aeroplane mode</div>} /><div className="grid gap-6 lg:grid-cols-[1fr_300px]"><div className="rounded-2xl border border-border bg-card p-5 sm:p-8">{document.previewUrl && document.type.startsWith('image/') && <img src={document.previewUrl} alt={`Captured preview of ${document.name}`} className="mb-6 max-h-[280px] w-full rounded-xl border border-border object-contain bg-secondary/30" />}<div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5"><div><div className="font-data text-[10px] uppercase tracking-[.16em] text-muted-foreground">Extracted document text</div><div className="mt-1 flex items-center gap-2 font-display text-2xl font-bold"><FileText size={20} className="text-primary" />{document.name}</div></div><span className="rounded-full bg-secondary px-3 py-1.5 font-data text-[9px] uppercase tracking-wide text-muted-foreground">{document.type === 'application/pdf' ? 'PDF' : 'IMAGE'} · LOCAL OCR</span></div><textarea value={document.text} onChange={(event) => window.dispatchEvent(new CustomEvent('namma-form-text-change', { detail: event.target.value }))} data-testid="textarea-ocr-text" className="min-h-[390px] w-full resize-y rounded-xl border border-input bg-background px-4 py-4 font-mono text-[13px] leading-relaxed outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/10" aria-label="Extracted document text" placeholder="OCR text will appear here..." /><div className="mt-5 flex flex-wrap gap-3 border-t border-border pt-5"><button onClick={onReset} data-testid="button-reset-form" className="flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground hover:bg-secondary"><RotateCcw size={14} /> Clear uploaded form</button><label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground hover:bg-secondary"><input type="file" accept="image/*,.pdf,application/pdf" className="sr-only" onChange={(event) => { const file = event.target.files?.[0]; if (file) onSelectFile(file, 'upload'); event.currentTarget.value = ''; }} /><FileUp size={14} /> Replace document</label><button onClick={() => navigate('/ask')} data-testid="button-ask-form" className="flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground">Ask about this form <ArrowRight size={14} /></button></div></div><aside className="space-y-4"><StatusCard icon={LockKeyhole} title="Private by design" body="The uploaded file and reviewed text stay in this page's browser state. They are not added to the evaluation CSV." /><StatusCard icon={FileText} title="OCR adapter" body="This demo uses bundled Tesseract.js for images and renders up to five PDF pages locally before recognition." /></aside></div></div>;
 }
 
-function AskPage({ document, selectedLang }: { document: UploadedDocument | null; selectedLang: LangChoice }) {
+function AskPage({ document: uploadedDocument, selectedLang }: { document: UploadedDocument | null; selectedLang: LangChoice }) {
+  const document = uploadedDocument as UploadedDocument;
   const [, navigate] = useLocation(); const [question, setQuestion] = useState(''); const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; text: string; meta?: LocalAnswer }[]>([]); const [thinking, setThinking] = useState(false);
-  const prompts = ['What is the applicant name?', 'What is the annual income?', 'Is this applicant eligible?'];
-  const ask = (value = question) => { if (!value.trim() || !document?.text.trim()) return; setQuestion(''); setMessages((m) => [...m, { role: 'user', text: value }]); setThinking(true); window.setTimeout(() => { const meta = answerFromDocument(document.text, value); setMessages((m) => [...m, { role: 'assistant', text: meta.answer, meta }]); setThinking(false); }, 360); };
+  const prompts = document?.source === 'official' ? (document.officialQuestions ?? []) : [];
+  const ask = (value = question) => { const activeDocument = document; if (!value.trim() || !activeDocument?.text.trim()) return; setQuestion(''); setMessages((m) => [...m, { role: 'user', text: value }]); setThinking(true); window.setTimeout(() => { const meta = answerFromDocument(activeDocument.text, value, { fileName: activeDocument.name, language: selectedLang, fileType: activeDocument.type, eligibilityRule: activeDocument.eligibilityRule }); setMessages((m) => [...m, { role: 'assistant', text: meta.answer, meta }]); setThinking(false); }, 360); };
   if (!document) return <EmptyState title="Add a form first" body="Local question answering needs an uploaded form and its extracted text." action="Add a form" onClick={() => navigate('/')} />;
+  assertLoadedDocument(document);
+  return <div className="mx-auto max-w-[980px] space-y-7"><PageHeading eyebrow="Ask locally / grounded answers" title="A second pair of eyes." description={`Every answer is restricted to ${document.name}, its local metadata, and retrieved document chunks.`} action={<div className="flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-wide text-primary"><Cpu size={14} /> device local</div>} /><div className="rounded-2xl border border-border bg-card"><div className="min-h-[330px] space-y-5 p-5 sm:p-8">{messages.length === 0 && <div className="flex min-h-[250px] flex-col items-center justify-center text-center"><CircleHelp size={25} className="mb-4 text-primary" /><h3 className="font-display text-2xl font-bold">Ask about this document</h3><p className="mt-2 max-w-[440px] text-sm text-muted-foreground">Try a field, a heading, a table label, or file metadata. Unsupported questions return a clear no-answer result.</p><div className="mt-6 flex flex-wrap justify-center gap-2">{[...prompts, 'How many pages are there?', 'What language is the document?', 'What file name was uploaded?'].map((prompt) => <button key={prompt} onClick={() => ask(prompt)} className="rounded-full border border-border px-3 py-2 text-xs text-foreground/75 hover:border-primary hover:text-primary">{prompt}</button>)}</div></div>}{messages.map((message, index) => <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'rounded-br-sm bg-primary text-primary-foreground' : 'rounded-bl-sm bg-secondary/80 text-foreground'}`}><div>{message.text}</div>{message.meta && <div className="mt-3 border-t border-foreground/10 pt-3"><div className="flex flex-wrap gap-2 font-data text-[9px] uppercase tracking-wide opacity-70"><span>{message.meta.type}</span><span>confidence {confidenceLabel(message.meta.confidence)}</span><span>{message.meta.sourcePages?.length ? `page ${message.meta.sourcePages.join(', ')}` : 'document metadata'}</span></div><details className="mt-3 rounded-lg border border-border/70 bg-background/50 px-3 py-2"><summary className="cursor-pointer text-xs font-semibold">Supporting evidence</summary><mark className="mt-2 block whitespace-pre-wrap bg-accent/15 px-2 py-1 text-xs leading-relaxed text-foreground">{message.meta.supportingText || 'Answer derived from local document metadata.'}</mark></details></div>}</div></div>)}{thinking && <div className="text-xs text-muted-foreground">Retrieving only local document chunks…</div>}</div><form onSubmit={(event) => { event.preventDefault(); ask(); }} className="flex gap-2 border-t border-border bg-background/60 p-4 sm:p-5"><input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about this document..." className="min-w-0 flex-1 rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" /><button type="submit" disabled={!question.trim() || thinking} className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground disabled:opacity-40"><Send size={17} /></button></form></div></div>;
   return <div className="mx-auto max-w-[980px] space-y-7"><PageHeading eyebrow="Ask locally / OCR text + reasoning" title="A second pair of eyes." description={`Ask about ${document.name}. Answers are grounded in the reviewed OCR text, using ${selectedLang === 'en' ? 'English' : 'Telugu'} prompts and a local deterministic reasoning layer.`} action={<div className="flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-wide text-primary"><Cpu size={14} /> no network inference</div>} /><div className="rounded-2xl border border-border bg-card"><div className="flex items-center gap-3 border-b border-border px-5 py-4"><span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground"><MessageCircle size={16} /></span><div><div className="text-sm font-bold">Form companion</div><div className="font-data text-[9px] uppercase tracking-[.14em] text-muted-foreground">Context: {document.name} / {selectedLang === 'en' ? 'English' : 'Telugu'}</div></div><span className="ml-auto flex items-center gap-1.5 font-data text-[9px] text-emerald-700"><span className="h-1.5 w-1.5 rounded-full bg-emerald-600" /> OCR READY</span></div><div className="min-h-[330px] space-y-5 p-5 sm:p-8">{messages.length === 0 && <div className="flex min-h-[250px] flex-col items-center justify-center text-center"><div className="mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-secondary text-primary"><CircleHelp size={25} /></div><h3 className="font-display text-2xl font-bold">What would you like to understand?</h3><p className="mt-2 max-w-[440px] text-sm text-muted-foreground">Try an extraction question or ask the eligibility rule. The answer, source line, and confidence stay visible.</p><div className="mt-6 flex flex-wrap justify-center gap-2">{prompts.map((prompt) => <button key={prompt} onClick={() => ask(prompt)} data-testid={`button-prompt-${prompt.slice(0, 5)}`} className="rounded-full border border-border px-3 py-2 text-xs text-foreground/75 transition-colors hover:border-primary hover:text-primary">{prompt}</button>)}</div></div>}{messages.map((message, index) => <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'rounded-br-sm bg-primary text-primary-foreground' : 'rounded-bl-sm bg-secondary/80 text-foreground'}`}><div>{message.text}</div>{message.meta && <div className="mt-3 flex flex-wrap gap-2 border-t border-foreground/10 pt-2 font-data text-[9px] uppercase tracking-wide opacity-65"><span>{message.meta.type}</span><span>confidence {Math.round(message.meta.confidence * 100)}%</span><span>source {message.meta.source}</span></div>}</div></div>)}{thinking && <div className="flex items-center gap-2 text-xs text-muted-foreground"><span className="flex gap-1"><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" /><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary [animation-delay:150ms]" /><i className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary [animation-delay:300ms]" /></span>Searching only the reviewed OCR text</div>}</div><form onSubmit={(event) => { event.preventDefault(); ask(); }} className="flex gap-2 border-t border-border bg-background/60 p-4 sm:p-5"><input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about this form..." data-testid="input-question" className="min-w-0 flex-1 rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" /><button type="submit" disabled={!question.trim() || thinking} data-testid="button-send-question" className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground disabled:opacity-40"><Send size={17} /></button></form></div></div>;
 }
 
@@ -155,31 +181,36 @@ function Boundary({ title, icon: Icon, tone, items }: { title: string; icon: typ
 function Plug({ title, body }: { title: string; body: string }) { return <div className="rounded-xl border border-primary-foreground/15 bg-primary-foreground/[.08] p-4"><div className="font-data text-[10px] font-bold uppercase tracking-wide text-primary-foreground/80">{title}</div><p className="mt-2 text-[11px] leading-relaxed text-primary-foreground/60">{body}</p></div>; }
 function MiniFact({ title, value, icon: Icon }: { title: string; value: string; icon: typeof Cpu }) { return <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4"><span className="grid h-9 w-9 place-items-center rounded-lg bg-secondary text-primary"><Icon size={16} /></span><div><div className="font-data text-[9px] uppercase tracking-wide text-muted-foreground">{title}</div><div className="mt-1 text-sm font-bold">{value}</div></div></div>; }
 
-function RouterView({ corpus, document, selectedLang, setSelectedLang, onSelectFile, onReset, isProcessing, progress, processingLabel, error }: {
+function RouterView({ corpus, officialForms, officialQuestions, document, selectedLang, setSelectedLang, onSelectFile, onLoadOfficialForm, onReset, isProcessing, progress, processingLabel, error }: {
   corpus: CorpusRecord[];
+  officialForms: OfficialForm[];
+  officialQuestions: OfficialQuestion[];
   document: UploadedDocument | null;
   selectedLang: LangChoice;
   setSelectedLang: (language: LangChoice) => void;
   onSelectFile: (file: File, source: UploadSource) => void;
+  onLoadOfficialForm: (form: OfficialForm, language: string, formQuestions: string[]) => void;
   onReset: () => void;
   isProcessing: boolean;
   progress: number;
   processingLabel: string;
   error: string | null;
 }) {
-  const [path] = useLocation();
+  const [path, navigate] = useLocation();
+  if (path === '/official-dataset') return <OfficialDatasetPage forms={officialForms} questions={officialQuestions} onLoadForm={onLoadOfficialForm} />;
   if (path === '/form') return <FormPage document={document} selectedLang={selectedLang} onSelectFile={onSelectFile} onReset={onReset} />;
   if (path === '/ask') return <AskPage document={document} selectedLang={selectedLang} />;
+  if (path === '/offline') return <OfflineVerification />;
   if (path === '/analytics') return <AnalyticsPage corpus={corpus} />;
   if (path === '/limits') return <LimitsPage />;
-  return <HomePage document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={onSelectFile} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} />;
+  return <HomePage document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={onSelectFile} onOpenOfficialDataset={() => navigate('/official-dataset')} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} />;
 }
 
 function App() {
   const [corpus, setCorpus] = useState<CorpusRecord[]>([]);
+  const [officialDataset] = useState(() => loadOfficialDataset());
   const [document, setDocument] = useState<UploadedDocument | null>(null);
   const [selectedLang, setSelectedLang] = useState<LangChoice>(() => readPreference('namma-lang') === 'te' ? 'te' : 'en');
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => readPreference('namma-theme') === 'dark' ? 'dark' : 'light');
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [processingLabel, setProcessingLabel] = useState('');
@@ -188,7 +219,6 @@ function App() {
 
   useEffect(() => { loadCorpus().then(setCorpus).catch(() => setCorpus([])); }, []);
   useEffect(() => { writePreference('namma-lang', selectedLang); }, [selectedLang]);
-  useEffect(() => { window.document.documentElement.classList.toggle('dark', theme === 'dark'); writePreference('namma-theme', theme); }, [theme]);
   useEffect(() => () => { if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl); }, [document?.previewUrl]);
   useEffect(() => {
     const handleTextChange = (event: Event) => {
@@ -207,6 +237,16 @@ function App() {
     setIsProcessing(false);
     setProgress(0);
     setProcessingLabel('');
+  };
+
+  const loadOfficialForm = (form: OfficialForm, language: string, formQuestions: string[]) => {
+    uploadId.current += 1;
+    if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl);
+    const text = form.textLayers[language];
+    if (!text) { setError(`The ${language} text layer is unavailable for ${form.formId}.`); return; }
+    setError(null);
+    setIsProcessing(false);
+    setDocument({ name: `${form.formId} · ${form.formType}`, type: 'application/x-ps-i2-text', text, source: 'official', officialLanguage: language, officialQuestions: formQuestions, eligibilityRule: form.eligibilityRule });
   };
 
   const handleFile = async (file: File, source: UploadSource) => {
@@ -233,7 +273,7 @@ function App() {
     setError(null);
     setIsProcessing(true);
     setProgress(0.03);
-    setProcessingLabel(source === 'camera' ? 'Reading camera capture' : 'Preparing local OCR');
+    setProcessingLabel('Preparing local OCR');
     const previewUrl = URL.createObjectURL(file);
     try {
       const text = await extractTextFromFile(file, selectedLang as OcrLanguage, ({ status, progress: nextProgress }) => {
@@ -243,7 +283,7 @@ function App() {
       });
       if (!text.trim()) throw new Error('No readable text was found. Try a sharper photo or edit the OCR text manually.');
       if (currentUploadId !== uploadId.current) { URL.revokeObjectURL(previewUrl); return; }
-      setDocument({ name: file.name || (source === 'camera' ? 'camera-capture.jpg' : 'uploaded-form'), type: file.type || 'application/octet-stream', previewUrl, text, source });
+      setDocument({ name: file.name || 'uploaded-form', type: file.type || 'application/octet-stream', previewUrl, text, source });
       setProgress(1);
       setProcessingLabel('OCR text ready');
       window.history.replaceState({}, '', `${import.meta.env.BASE_URL}form`);
@@ -256,7 +296,7 @@ function App() {
     }
   };
 
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><AppShell document={document} selectedLang={selectedLang} corpusReady={corpus.length > 0} theme={theme} onToggleTheme={() => setTheme((current) => current === 'light' ? 'dark' : 'light')}><RouterView corpus={corpus} document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={handleFile} onReset={resetDocument} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} /></AppShell></WouterRouter></TooltipProvider></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><AppShell document={document} selectedLang={selectedLang} corpusReady={corpus.length > 0}><RouterView corpus={corpus} officialForms={officialDataset.forms} officialQuestions={officialDataset.questions} document={document} selectedLang={selectedLang} setSelectedLang={setSelectedLang} onSelectFile={handleFile} onLoadOfficialForm={loadOfficialForm} onReset={resetDocument} isProcessing={isProcessing} progress={progress} processingLabel={processingLabel} error={error} /></AppShell></WouterRouter></TooltipProvider></QueryClientProvider>;
 }
 
 export default App;

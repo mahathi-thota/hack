@@ -1,0 +1,8 @@
+language,average_tokens_per_sentence,characters_per_token,fertility,unknown_token_percentage,status
+en,10.4,5.846153846153846,1,,baseline Unicode retrieval tokenizer; no intervention
+hi,10.8,4.814814814814815,1.0188679245283019,,baseline Unicode retrieval tokenizer; no intervention
+bn,8,6.1,1,,baseline Unicode retrieval tokenizer; no intervention
+te,7,7.714285714285714,1,,baseline Unicode retrieval tokenizer; no intervention
+ta,8,9.3,1,,baseline Unicode retrieval tokenizer; no intervention
+mr,7.2,6.861111111111111,1,,baseline Unicode retrieval tokenizer; no intervention
+kn,7.2,7.5,1,,baseline Unicode retrieval tokenizer; no intervention

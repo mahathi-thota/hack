@@ -1,0 +1,8 @@
+language,characters_per_token,average_tokens_per_sentence,fertility,unknown_token_rate,status,reason
+en,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+hi,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+bn,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+te,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+ta,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+mr,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."
+kn,,,,,not-evaluated,"No tokenizer implementation or before/after tokenizer token-count output is bundled with this repository or the official public dataset."

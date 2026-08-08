@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import {
   answerFromDocument,
+  createMobileSafeFile,
   confidenceLabel,
   CorpusRecord,
   extractTextFromFile,
@@ -269,29 +270,37 @@ function App() {
       setError(validationError);
       return;
     }
+    let ocrFile: File;
+    try {
+      ocrFile = await createMobileSafeFile(file);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : 'The selected file could not be read on this device.');
+      return;
+    }
     const currentUploadId = ++uploadId.current;
     if (document?.previewUrl) URL.revokeObjectURL(document.previewUrl);
     setError(null);
     setIsProcessing(true);
     setProgress(0.03);
     setProcessingLabel(source === 'camera' ? 'Preparing camera image' : 'Preparing local OCR');
-    const previewUrl = URL.createObjectURL(file);
+    const previewUrl = URL.createObjectURL(ocrFile);
     try {
-      const text = await extractTextFromFile(file, selectedLang as OcrLanguage, ({ status, progress: nextProgress }) => {
+      const text = await extractTextFromFile(ocrFile, selectedLang as OcrLanguage, ({ status, progress: nextProgress }) => {
         if (currentUploadId !== uploadId.current) return;
         setProcessingLabel(status || 'Running local OCR');
         setProgress(Math.max(0.04, Math.min(0.98, nextProgress)));
       });
       if (!text.trim()) throw new Error('No readable text was found. Try a sharper photo or edit the OCR text manually.');
       if (currentUploadId !== uploadId.current) { URL.revokeObjectURL(previewUrl); return; }
-      setDocument({ name: file.name || (source === 'camera' ? 'camera-capture.jpg' : 'uploaded-form'), type: file.type || 'application/octet-stream', previewUrl, text, source });
+      setDocument({ name: ocrFile.name || (source === 'camera' ? 'camera-capture.jpg' : 'uploaded-form'), type: ocrFile.type || 'application/octet-stream', previewUrl, text, source });
       setProgress(1);
       setProcessingLabel('OCR text ready');
       window.history.replaceState({}, '', `${import.meta.env.BASE_URL}form`);
       window.dispatchEvent(new PopStateEvent('popstate'));
     } catch (caught) {
       if (currentUploadId === uploadId.current) URL.revokeObjectURL(previewUrl);
-      if (currentUploadId === uploadId.current) setError(getOcrErrorMessage(caught, isPdfFile(file)));
+      console.error('[Sahaay AI OCR] Upload OCR failed', { fileName: ocrFile.name, fileType: ocrFile.type, source, error: caught });
+      if (currentUploadId === uploadId.current) setError(getOcrErrorMessage(caught, isPdfFile(ocrFile)));
     } finally {
       if (currentUploadId === uploadId.current) setIsProcessing(false);
     }

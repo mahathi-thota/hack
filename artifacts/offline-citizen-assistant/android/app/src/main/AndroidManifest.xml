@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Capacitor's WebView fetches bundled worker, WASM and traineddata files
+         through its APK-local origin. This does not enable any cloud service;
+         external cleartext traffic remains disabled below. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application

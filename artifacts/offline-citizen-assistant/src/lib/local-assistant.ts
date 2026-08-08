@@ -1,3 +1,5 @@
+import { Capacitor } from '@capacitor/core';
+
 export type CorpusRecord = { qid: string; form_id: string; form_type: string; lang: string; type: 'extraction' | 'reasoning'; question: string; answer: string };
 export type OcrLanguage = 'en' | 'te';
 export type OcrProgress = { status: string; progress: number };
@@ -7,6 +9,13 @@ export type QaTrace = {
   rawOcrText: string; cleanedOcrText: string; question: string; chunks: Array<{ id: string; page: number; text: string; labels: string[]; extractedFields: Record<string, string | null>; retrievalScore: number }>;
   selectedChunkId: string | null; decision: string; answer: LocalAnswer;
 };
+
+export class LocalOcrAssetError extends Error {
+  constructor(public readonly assetUrl: string, reason: string) {
+    super(`OCR asset unavailable at ${assetUrl}: ${reason}`);
+    this.name = 'LocalOcrAssetError';
+  }
+}
 
 export const isPdfFile = (file: Pick<File, 'name' | 'type'>) =>
   file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
@@ -26,10 +35,23 @@ export async function validateDocumentFile(file: File): Promise<string | null> {
 }
 
 export function getOcrErrorMessage(error: unknown, isPdf: boolean) {
+  if (error instanceof LocalOcrAssetError) return `Bundled OCR asset could not be loaded: ${error.assetUrl} (${error.message.replace(/^.*?: /, '')}).`;
   const message = error instanceof Error ? error.message.toLowerCase() : '';
-  if (message.includes('worker') || message.includes('wasm') || message.includes('traineddata') || message.includes('networkerror')) return 'Local OCR files are unavailable. Reinstall the app assets and try again.';
+  if (message.includes('worker') || message.includes('wasm') || message.includes('traineddata') || message.includes('networkerror')) return `Local OCR startup failed: ${error instanceof Error ? error.message : 'unknown local worker error'}.`;
   if (isPdf) return 'This PDF is damaged, password-protected, or unsupported. Choose another PDF form.';
   return 'Local OCR could not read this image. Try a sharper photo with clear, well-lit text.';
+}
+
+/**
+ * Android's picker and camera return File objects backed by content URIs.
+ * Copy the bytes into an in-memory File before handing it to canvas, PDF.js,
+ * or the OCR worker, so none of those libraries need filesystem URI access.
+ */
+export async function createMobileSafeFile(file: File): Promise<File> {
+  const bytes = await file.arrayBuffer();
+  if (!bytes.byteLength) throw new Error('The selected file has no readable bytes.');
+  const name = file.name || (file.type.startsWith('image/') ? 'camera-capture.jpg' : 'uploaded-form.pdf');
+  return new File([bytes], name, { type: file.type || 'application/octet-stream', lastModified: file.lastModified || Date.now() });
 }
 
 const csvLine = (line: string) => {
@@ -59,17 +81,30 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
   const workerPath = localAssetUrl('ocr/worker.min.js');
   const corePath = localAssetUrl('ocr/');
   const langPath = localAssetUrl(`ocr/${lang}/`);
-  // Capacitor serves APK assets through the WebView's local origin, not Vite's
-  // development server. Verify the exact traineddata URL before Tesseract starts
-  // so an unavailable APK asset fails clearly instead of stalling at 4%.
-  const traineddata = await fetch(localAssetUrl(`ocr/${lang}/${lang}.traineddata.gz`));
-  if (!traineddata.ok || !(await traineddata.clone().arrayBuffer()).byteLength) throw new Error(`Bundled ${lang} traineddata is unavailable.`);
+  // Android AAPT expands .gz assets and exposes them as *.traineddata in the
+  // APK. Browsers serve the original .gz files from public/, so select the
+  // correct packaged filename and tell Tesseract whether to decompress it.
+  const useApkLanguageData = Capacitor.isNativePlatform();
+  const traineddataFile = `${lang}.traineddata${useApkLanguageData ? '' : '.gz'}`;
+  // Capacitor serves these APK files from its WebView-local origin. Checking
+  // the exact URLs before worker startup makes an Android packaging failure
+  // diagnosable instead of leaving Tesseract at "loading language" progress.
+  await verifyLocalOcrAssets([
+    workerPath,
+    localAssetUrl('ocr/tesseract-core-simd-lstm.wasm.js'),
+    localAssetUrl('ocr/tesseract-core-simd-lstm.wasm'),
+    localAssetUrl(`ocr/${lang}/${traineddataFile}`),
+  ]);
   const worker = await createWorker(lang, 1, {
     workerPath,
     corePath,
     langPath,
-    workerBlobURL: true,
-    gzip: true,
+    // A Blob worker has a blob: base URL. Tesseract's WASM glue then resolves
+    // its adjacent .wasm file against blob:, which fails in Capacitor. Keep
+    // the worker at its bundled same-origin URL so relative core files resolve
+    // inside /ocr/ on both Android and desktop.
+    workerBlobURL: false,
+    gzip: !useApkLanguageData,
     logger: (message) => onProgress?.({ status: message.status, progress: message.progress }),
   });
 
@@ -109,6 +144,23 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
     return normaliseOcrText(result.text);
   } finally {
     await worker.terminate();
+  }
+}
+
+async function verifyLocalOcrAssets(assetUrls: string[]) {
+  for (const assetUrl of assetUrls) {
+    let response: Response;
+    try {
+      response = await fetch(assetUrl, { cache: 'no-store' });
+    } catch (error) {
+      console.error('[Sahaay AI OCR] Local asset request failed', { assetUrl, error });
+      throw new LocalOcrAssetError(assetUrl, error instanceof Error ? error.message : 'network request failed');
+    }
+    if (!response.ok) {
+      console.error('[Sahaay AI OCR] Local asset returned an error', { assetUrl, status: response.status, statusText: response.statusText });
+      throw new LocalOcrAssetError(assetUrl, `HTTP ${response.status} ${response.statusText}`.trim());
+    }
+    console.info('[Sahaay AI OCR] Local asset available', { assetUrl, status: response.status, contentLength: response.headers.get('content-length') });
   }
 }
 

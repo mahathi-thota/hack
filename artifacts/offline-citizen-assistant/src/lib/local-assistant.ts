@@ -55,13 +55,20 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
     import('tesseract.js'),
     isPdf ? import('pdfjs-dist') : Promise.resolve(null),
   ]);
-  const base = import.meta.env.BASE_URL;
   const lang = language === 'te' ? 'tel' : 'eng';
+  const workerPath = localAssetUrl('ocr/worker.min.js');
+  const corePath = localAssetUrl('ocr/');
+  const langPath = localAssetUrl(`ocr/${lang}/`);
+  // Capacitor serves APK assets through the WebView's local origin, not Vite's
+  // development server. Verify the exact traineddata URL before Tesseract starts
+  // so an unavailable APK asset fails clearly instead of stalling at 4%.
+  const traineddata = await fetch(localAssetUrl(`ocr/${lang}/${lang}.traineddata.gz`));
+  if (!traineddata.ok || !(await traineddata.clone().arrayBuffer()).byteLength) throw new Error(`Bundled ${lang} traineddata is unavailable.`);
   const worker = await createWorker(lang, 1, {
-    workerPath: `${base}ocr/worker.min.js`,
-    corePath: `${base}ocr`,
-    langPath: `${base}ocr/${lang}`,
-    workerBlobURL: false,
+    workerPath,
+    corePath,
+    langPath,
+    workerBlobURL: true,
     gzip: true,
     logger: (message) => onProgress?.({ status: message.status, progress: message.progress }),
   });
@@ -69,7 +76,7 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
   try {
     await worker.setParameters({ tessedit_pageseg_mode: PSM.SINGLE_BLOCK, user_defined_dpi: '300', preserve_interword_spaces: '1' });
     if (isPdf && pdfjsLib) {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `${base}ocr/pdf.worker.mjs`;
+      pdfjsLib.GlobalWorkerOptions.workerSrc = localAssetUrl('ocr/pdf.worker.mjs');
       const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), disableAutoFetch: true, disableStream: true }).promise;
       const pages = Math.min(pdf.numPages, 5);
       const pageText: string[] = [];
@@ -103,6 +110,11 @@ export async function extractTextFromFile(file: File, language: OcrLanguage, onP
   } finally {
     await worker.terminate();
   }
+}
+
+function localAssetUrl(path: string) {
+  const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+  return new URL(`${base}${path.replace(/^\//, '')}`, window.location.href).href;
 }
 
 /** Normalise line endings and Unicode without transliterating Indic scripts. */

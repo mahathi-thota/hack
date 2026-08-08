@@ -3,7 +3,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Link, Router as WouterRouter, useLocation } from 'wouter';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
-  Activity, ArrowRight, BarChart3, Check, ChevronRight, CircleHelp, Cpu, Database,
+  Activity, ArrowLeft, ArrowRight, BarChart3, Camera, Check, ChevronRight, CircleHelp, Cpu, Database,
   FileText, FileUp, Gauge, Info, Languages, LockKeyhole, Menu, MessageCircle, Network,
   PanelLeft, Plane, RotateCcw, Send, ShieldCheck, Sparkles, Thermometer, Timer, Upload, WifiOff, X,
 } from 'lucide-react';
@@ -24,7 +24,7 @@ import { OfflineVerification } from '@/components/offline-verification';
 
 const queryClient = new QueryClient();
 type LangChoice = 'en' | 'te';
-type UploadSource = 'upload';
+type UploadSource = 'upload' | 'camera';
 type DocumentSource = UploadSource | 'official';
 type UploadedDocument = {
   name: string;
@@ -67,7 +67,7 @@ function AppShell({ children, document, selectedLang, corpusReady }: { children:
       <div className="flex items-start justify-between">
         <Link href="/" onClick={() => setOpen(false)} className="group flex items-center gap-3" data-testid="link-brand">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm"><LockKeyhole size={19} strokeWidth={2.2} /></span>
-          <span><span className="block font-display text-[20px] font-bold leading-none tracking-tight">Namma Form</span><span className="mt-1 block font-data text-[9px] uppercase tracking-[.18em] text-muted-foreground">local citizen assistant</span></span>
+          <span><span className="block font-display text-[20px] font-bold leading-none tracking-tight">Sahaay AI</span><span className="mt-1 block font-data text-[9px] uppercase tracking-[.18em] text-muted-foreground">local citizen assistant</span></span>
         </Link>
         <button onClick={() => setOpen(false)} className="rounded-lg p-1 text-muted-foreground lg:hidden" aria-label="Close menu" data-testid="button-close-menu"><X size={18} /></button>
       </div>
@@ -87,7 +87,7 @@ function AppShell({ children, document, selectedLang, corpusReady }: { children:
       <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-border/70 bg-background/90 px-5 backdrop-blur-md sm:px-8 lg:px-12">
         <button onClick={() => setOpen(true)} className="rounded-lg p-2 text-foreground lg:hidden" aria-label="Open menu" data-testid="button-open-menu"><Menu size={21} /></button>
         <div className="hidden items-center gap-2 text-[12px] text-muted-foreground sm:flex"><span className="font-data text-[10px] uppercase tracking-[.14em]">Device local</span><span className="h-1 w-1 rounded-full bg-accent" /><span>{document ? `${document.name} · ${selectedLang === 'en' ? 'English' : 'Telugu'}` : 'No form loaded'}</span></div>
-        <div className="ml-auto flex items-center gap-2"><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span></div>
+        <div className="ml-auto flex items-center gap-2"><button onClick={() => window.history.back()} className="flex items-center gap-1 rounded-lg px-2 py-2 text-xs font-semibold text-muted-foreground hover:bg-secondary" aria-label="Go back"><ArrowLeft size={16} /> Back</button><span className="hidden rounded-full border border-emerald-700/20 bg-emerald-700/[.07] px-3 py-1.5 font-data text-[10px] font-bold tracking-wide text-emerald-800 sm:block">OFFLINE READY</span></div>
       </header>
       <main className="mx-auto max-w-[1380px] px-5 py-8 sm:px-8 lg:px-12 lg:py-12">{children}</main>
     </div>
@@ -108,13 +108,14 @@ function HomePage({ document, selectedLang, setSelectedLang, onSelectFile, onOpe
   const [, navigate] = useLocation();
   return <div className="space-y-10">
     <section className="rise grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
-      <div><div className="mb-5 flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-[.2em] text-primary"><Sparkles size={14} /> a quieter way through paperwork</div><h1 className="max-w-[680px] font-display text-[clamp(44px,6vw,82px)] font-bold leading-[.94] tracking-[-.045em] text-foreground">Understand your form.<br /><span className="text-primary">Keep your data.</span></h1><p className="mt-6 max-w-[560px] text-[17px] leading-relaxed text-muted-foreground">Upload a government form from your device. Namma Form extracts the text locally, then helps you ask questions without sending personal information anywhere.</p></div>
+      <div><div className="mb-5 flex items-center gap-2 font-data text-[10px] font-bold uppercase tracking-[.2em] text-primary"><Sparkles size={14} /> a quieter way through paperwork</div><h1 className="max-w-[680px] font-display text-[clamp(44px,6vw,82px)] font-bold leading-[.94] tracking-[-.045em] text-foreground">Understand your form.<br /><span className="text-primary">Keep your data.</span></h1><p className="mt-6 max-w-[560px] text-[17px] leading-relaxed text-muted-foreground">Upload a government form from your device. Sahaay AI extracts the text locally, then helps you ask questions without sending personal information anywhere.</p></div>
       <div className="paper-grid relative overflow-hidden rounded-[22px] border border-border bg-[#e4e8dc] p-6 sm:p-8"><div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border-[18px] border-accent/20" /><div className="relative"><div className="mb-10 flex items-center justify-between"><span className="font-data text-[10px] uppercase tracking-[.18em] text-primary">LOCAL / INTAKE</span><ShieldCheck size={23} className="text-primary" /></div><div className="font-display text-[31px] font-bold leading-tight text-primary">Your document<br />stays with you.</div><div className="mt-8 flex items-center gap-3 text-[12px] text-primary/70"><span className="h-px w-8 bg-primary/40" />OCR and questions run locally</div></div></div>
     </section>
 
     <section className="rise-2 space-y-5"><div><p className="font-data text-[10px] font-bold uppercase tracking-[.2em] text-muted-foreground">Step 01 / add your document</p><h2 className="mt-2 font-display text-3xl font-bold tracking-tight">Bring a form from your device.</h2><p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">Use a JPG, PNG, WEBP, or PDF.</p></div>
-      <div>
+      <div className="grid gap-4 md:grid-cols-2">
         <label className="group flex min-h-[190px] cursor-pointer flex-col justify-between rounded-2xl border border-border bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-sm" data-testid="dropzone-upload"><input type="file" accept="image/*,.pdf,application/pdf" className="sr-only" onChange={(event) => { const file = event.target.files?.[0]; if (file) onSelectFile(file, 'upload'); event.currentTarget.value = ''; }} /><span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary"><Upload size={20} /></span><span><span className="mt-8 block font-display text-[25px] font-bold">Upload a form</span><span className="mt-2 block text-[12px] text-muted-foreground">Choose an image or PDF from this device.</span></span></label>
+        <label className="group flex min-h-[190px] cursor-pointer flex-col justify-between rounded-2xl border border-border bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-sm" data-testid="dropzone-camera"><input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(event) => { const file = event.target.files?.[0]; if (file) onSelectFile(file, 'camera'); event.currentTarget.value = ''; }} /><span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary"><Camera size={20} /></span><span><span className="mt-8 block font-display text-[25px] font-bold">Take photo</span><span className="mt-2 block text-[12px] text-muted-foreground">Capture a document with the device camera.</span></span></label>
       </div>
       <button onClick={onOpenOfficialDataset} data-testid="button-load-official-dataset" className="flex w-full items-center justify-between rounded-2xl border border-primary/25 bg-primary/[.05] p-5 text-left transition-colors hover:bg-primary/[.09]"><span className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-xl bg-primary text-primary-foreground"><Database size={19} /></span><span><span className="block text-sm font-bold">Load Official PS-I2 Dataset</span><span className="mt-1 block text-xs text-muted-foreground">Browse bundled forms and ask their official evaluation questions without OCR.</span></span></span><ArrowRight size={17} className="text-primary" /></button>
     </section>
@@ -273,7 +274,7 @@ function App() {
     setError(null);
     setIsProcessing(true);
     setProgress(0.03);
-    setProcessingLabel('Preparing local OCR');
+    setProcessingLabel(source === 'camera' ? 'Preparing camera image' : 'Preparing local OCR');
     const previewUrl = URL.createObjectURL(file);
     try {
       const text = await extractTextFromFile(file, selectedLang as OcrLanguage, ({ status, progress: nextProgress }) => {
@@ -283,7 +284,7 @@ function App() {
       });
       if (!text.trim()) throw new Error('No readable text was found. Try a sharper photo or edit the OCR text manually.');
       if (currentUploadId !== uploadId.current) { URL.revokeObjectURL(previewUrl); return; }
-      setDocument({ name: file.name || 'uploaded-form', type: file.type || 'application/octet-stream', previewUrl, text, source });
+      setDocument({ name: file.name || (source === 'camera' ? 'camera-capture.jpg' : 'uploaded-form'), type: file.type || 'application/octet-stream', previewUrl, text, source });
       setProgress(1);
       setProcessingLabel('OCR text ready');
       window.history.replaceState({}, '', `${import.meta.env.BASE_URL}form`);

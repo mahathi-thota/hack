@@ -1,4 +1,4 @@
-# Namma Form
+# Sahaay AI
 
 An offline-first citizen form assistant that helps people understand local government-form data without sending their questions or form values to a server.
 

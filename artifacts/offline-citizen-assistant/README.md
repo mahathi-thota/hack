@@ -1,6 +1,6 @@
-# Namma Form
+# Sahaay AI
 
-Namma Form is an offline-first citizen form assistant for the PSI-2 problem statement, “Intelligence Without the Data Centre.” It gives citizens a readable way to inspect a government-form example and ask natural-language questions without sending form data or inference requests to a server.
+Sahaay AI is an offline-first citizen form assistant for the PSI-2 problem statement, “Intelligence Without the Data Centre.” It gives citizens a readable way to inspect a government-form example and ask natural-language questions without sending form data or inference requests to a server.
 
 ## What the MVP demonstrates
 

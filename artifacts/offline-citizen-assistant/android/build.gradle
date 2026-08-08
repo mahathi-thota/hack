@@ -17,10 +17,29 @@ buildscript {
 
 apply from: "variables.gradle"
 
+def localBuildRoot = new File(
+    System.getenv('LOCALAPPDATA') ?: System.getProperty('java.io.tmpdir'),
+    'SahaayAI/gradle-build'
+)
+
 allprojects {
+    // Keep Gradle outputs outside OneDrive. OneDrive represents files it owns
+    // as reparse points, and Gradle 8.11 cannot snapshot those build outputs.
+    // Source assets remain in the project and are packaged as usual.
+    buildDir = new File(localBuildRoot, project.path == ':' ? 'root' : project.path.substring(1).replace(':', '_'))
+
     repositories {
         google()
         mavenCentral()
+    }
+
+    // Android lint snapshots Capacitor's web assets directly from OneDrive;
+    // those source files can be reparse points. This reporting task does not
+    // need incremental changes, unlike Android resource packaging tasks.
+    tasks.configureEach { task ->
+        if (task.name.endsWith('LintVitalReportModel')) {
+            task.doNotTrackState('OneDrive reparse points are not snapshotable by Gradle on Windows.')
+        }
     }
 }
 
